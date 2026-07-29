@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mahdijd\SeoManagement\Tests;
 
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 use Mahdijd\SeoManagement\SeoServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
@@ -42,5 +44,18 @@ abstract class TestCase extends OrchestraTestCase
             'database' => ':memory:',
             'prefix'   => '',
         ]);
+    }
+
+    /**
+     * Define database migrations for test fixtures.
+     */
+    protected function defineDatabaseMigrations(): void
+    {
+        Schema::create('posts', function (Blueprint $table): void {
+            $table->id();
+            $table->string('title');
+            $table->text('excerpt')->nullable();
+            $table->timestamps();
+        });
     }
 }
