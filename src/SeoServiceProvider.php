@@ -5,6 +5,12 @@ declare(strict_types=1);
 namespace Mahdijd\SeoManagement;
 
 use Illuminate\Support\ServiceProvider;
+use Mahdijd\SeoManagement\Contracts\SeoMetadataRepositoryInterface;
+use Mahdijd\SeoManagement\Contracts\SeoRouteRepositoryInterface;
+use Mahdijd\SeoManagement\Contracts\SeoSettingsRepositoryInterface;
+use Mahdijd\SeoManagement\Repositories\SeoMetadataRepository;
+use Mahdijd\SeoManagement\Repositories\SeoRouteRepository;
+use Mahdijd\SeoManagement\Repositories\SeoSettingsRepository;
 
 /**
  * SeoServiceProvider
@@ -23,6 +29,8 @@ class SeoServiceProvider extends ServiceProvider
             __DIR__ . '/../config/seo.php',
             'seo'
         );
+
+        $this->registerRepositories();
     }
 
     /**
@@ -34,6 +42,27 @@ class SeoServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'seo');
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'seo');
+    }
+
+    /**
+     * Register repository singletons in the service container.
+     */
+    private function registerRepositories(): void
+    {
+        $this->app->singleton(
+            SeoMetadataRepositoryInterface::class,
+            SeoMetadataRepository::class
+        );
+
+        $this->app->singleton(
+            SeoRouteRepositoryInterface::class,
+            SeoRouteRepository::class
+        );
+
+        $this->app->singleton(
+            SeoSettingsRepositoryInterface::class,
+            SeoSettingsRepository::class
+        );
     }
 
     /**
