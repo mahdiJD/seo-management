@@ -1,0 +1,60 @@
+{
+    "name": "mahdijd/seo-management",
+    "description": "A modern SEO management package for Laravel with first-class Filament v4 support.",
+    "keywords": ["laravel", "filament", "seo", "meta", "open-graph"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mahdi Bijari",
+            "email": "bijarimahdi@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "laravel/framework": "^12.0",
+        "filament/filament": "^4.0",
+        "livewire/livewire": "^3.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.0",
+        "pestphp/pest": "^3.0",
+        "pestphp/pest-plugin-laravel": "^3.0",
+        "larastan/larastan": "^3.0",
+        "laravel/pint": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mahdijd\\SeoManagement\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Mahdijd\\SeoManagement\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Mahdijd\\SeoManagement\\SeoServiceProvider"
+            ],
+            "aliases": {
+                "Seo": "Mahdijd\\SeoManagement\\Facades\\Seo"
+            }
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/pest",
+        "test:coverage": "vendor/bin/pest --coverage",
+        "analyse": "vendor/bin/phpstan analyse",
+        "lint": "vendor/bin/pint",
+        "lint:check": "vendor/bin/pint --test"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
