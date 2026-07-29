@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Mahdijd\SeoManagement;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Mahdijd\SeoManagement\Console\Commands\ClearSeoCache;
 use Mahdijd\SeoManagement\Contracts\SeoCacheManagerInterface;
 use Mahdijd\SeoManagement\Contracts\SeoMetadataRepositoryInterface;
 use Mahdijd\SeoManagement\Contracts\SeoRendererInterface;
@@ -24,11 +26,12 @@ use Mahdijd\SeoManagement\Services\SeoCacheManager;
 use Mahdijd\SeoManagement\Services\SeoManager;
 use Mahdijd\SeoManagement\Services\SeoRenderer;
 use Mahdijd\SeoManagement\Services\SeoResolver;
+use Mahdijd\SeoManagement\View\Components\TagsComponent;
 
 /**
  * SeoServiceProvider
  *
- * Registers all services, configuration, migrations, views, and commands
+ * Registers all services, configuration, migrations, views, commands, and components
  * for the Mahdijd SEO Management package.
  */
 class SeoServiceProvider extends ServiceProvider
@@ -54,9 +57,12 @@ class SeoServiceProvider extends ServiceProvider
     {
         $this->registerPublishing();
         $this->registerObservers();
+        $this->registerCommands();
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'seo');
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'seo');
+
+        Blade::component('seo::tags', TagsComponent::class);
     }
 
     /**
@@ -120,6 +126,18 @@ class SeoServiceProvider extends ServiceProvider
         SeoMetadata::observe(SeoMetadataObserver::class);
         SeoRoute::observe(SeoRouteObserver::class);
         SeoSettings::observe(SeoSettingsObserver::class);
+    }
+
+    /**
+     * Register package console commands.
+     */
+    private function registerCommands(): void
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                ClearSeoCache::class,
+            ]);
+        }
     }
 
     /**

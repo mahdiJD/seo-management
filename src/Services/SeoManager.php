@@ -41,6 +41,32 @@ class SeoManager
 
     /**
      * Resolve SeoData for an Eloquent model with optional runtime overrides.
+     * Alias for resolveModel().
+     *
+     * @param  Model  $model
+     * @param  array<string, mixed>  $overrides
+     * @return SeoData
+     */
+    public function forModel(Model $model, array $overrides = []): SeoData
+    {
+        return $this->resolveModel($model, $overrides);
+    }
+
+    /**
+     * Resolve SeoData for a named route with optional runtime overrides.
+     * Alias for resolveRoute().
+     *
+     * @param  string  $routeName
+     * @param  array<string, mixed>  $overrides
+     * @return SeoData
+     */
+    public function forRoute(string $routeName, array $overrides = []): SeoData
+    {
+        return $this->resolveRoute($routeName, $overrides);
+    }
+
+    /**
+     * Resolve SeoData for an Eloquent model with optional runtime overrides.
      *
      * @param  Model  $model
      * @param  array<string, mixed>  $overrides
@@ -171,6 +197,38 @@ class SeoManager
         } catch (Throwable) {
             return '';
         }
+    }
+
+    /**
+     * Clear cached SEO data for a specific Eloquent model.
+     *
+     * @param  Model  $model
+     * @return void
+     */
+    public function clearModel(Model $model): void
+    {
+        $this->cacheManager->forget($this->cacheManager->modelKey($model));
+    }
+
+    /**
+     * Clear cached SEO data for a specific named web route.
+     *
+     * @param  string  $routeName
+     * @return void
+     */
+    public function clearRoute(string $routeName): void
+    {
+        $this->cacheManager->forget($this->cacheManager->routeKey($routeName));
+    }
+
+    /**
+     * Flush all SEO cache entries.
+     *
+     * @return void
+     */
+    public function flushAll(): void
+    {
+        $this->cacheManager->flush();
     }
 
     /**
