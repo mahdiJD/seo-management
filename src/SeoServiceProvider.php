@@ -5,13 +5,24 @@ declare(strict_types=1);
 namespace Mahdijd\SeoManagement;
 
 use Illuminate\Support\ServiceProvider;
+use Mahdijd\SeoManagement\Contracts\SeoCacheManagerInterface;
 use Mahdijd\SeoManagement\Contracts\SeoMetadataRepositoryInterface;
+use Mahdijd\SeoManagement\Contracts\SeoRendererInterface;
 use Mahdijd\SeoManagement\Contracts\SeoResolverInterface;
 use Mahdijd\SeoManagement\Contracts\SeoRouteRepositoryInterface;
 use Mahdijd\SeoManagement\Contracts\SeoSettingsRepositoryInterface;
+use Mahdijd\SeoManagement\Models\SeoMetadata;
+use Mahdijd\SeoManagement\Models\SeoRoute;
+use Mahdijd\SeoManagement\Models\SeoSettings;
+use Mahdijd\SeoManagement\Observers\SeoMetadataObserver;
+use Mahdijd\SeoManagement\Observers\SeoRouteObserver;
+use Mahdijd\SeoManagement\Observers\SeoSettingsObserver;
 use Mahdijd\SeoManagement\Repositories\SeoMetadataRepository;
 use Mahdijd\SeoManagement\Repositories\SeoRouteRepository;
 use Mahdijd\SeoManagement\Repositories\SeoSettingsRepository;
+use Mahdijd\SeoManagement\Services\SeoCacheManager;
+use Mahdijd\SeoManagement\Services\SeoManager;
+use Mahdijd\SeoManagement\Services\SeoRenderer;
 use Mahdijd\SeoManagement\Services\SeoResolver;
 
 /**
@@ -42,6 +53,7 @@ class SeoServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerPublishing();
+        $this->registerObservers();
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'seo');
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'seo');
@@ -77,6 +89,37 @@ class SeoServiceProvider extends ServiceProvider
             SeoResolverInterface::class,
             SeoResolver::class
         );
+
+        $this->app->singleton(
+            SeoRendererInterface::class,
+            SeoRenderer::class
+        );
+
+        $this->app->singleton(
+            SeoCacheManagerInterface::class,
+            SeoCacheManager::class
+        );
+
+        $this->app->singleton(
+            SeoManager::class,
+            fn ($app) => new SeoManager(
+                $app->make(SeoResolverInterface::class),
+                $app->make(SeoRendererInterface::class),
+                $app->make(SeoCacheManagerInterface::class)
+            )
+        );
+
+        $this->app->alias(SeoManager::class, 'seo');
+    }
+
+    /**
+     * Register model observers for automatic cache invalidation.
+     */
+    private function registerObservers(): void
+    {
+        SeoMetadata::observe(SeoMetadataObserver::class);
+        SeoRoute::observe(SeoRouteObserver::class);
+        SeoSettings::observe(SeoSettingsObserver::class);
     }
 
     /**
