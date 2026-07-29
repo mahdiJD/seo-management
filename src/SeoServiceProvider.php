@@ -6,11 +6,13 @@ namespace Mahdijd\SeoManagement;
 
 use Illuminate\Support\ServiceProvider;
 use Mahdijd\SeoManagement\Contracts\SeoMetadataRepositoryInterface;
+use Mahdijd\SeoManagement\Contracts\SeoResolverInterface;
 use Mahdijd\SeoManagement\Contracts\SeoRouteRepositoryInterface;
 use Mahdijd\SeoManagement\Contracts\SeoSettingsRepositoryInterface;
 use Mahdijd\SeoManagement\Repositories\SeoMetadataRepository;
 use Mahdijd\SeoManagement\Repositories\SeoRouteRepository;
 use Mahdijd\SeoManagement\Repositories\SeoSettingsRepository;
+use Mahdijd\SeoManagement\Services\SeoResolver;
 
 /**
  * SeoServiceProvider
@@ -31,6 +33,7 @@ class SeoServiceProvider extends ServiceProvider
         );
 
         $this->registerRepositories();
+        $this->registerServices();
     }
 
     /**
@@ -62,6 +65,17 @@ class SeoServiceProvider extends ServiceProvider
         $this->app->singleton(
             SeoSettingsRepositoryInterface::class,
             SeoSettingsRepository::class
+        );
+    }
+
+    /**
+     * Register core services in the service container.
+     */
+    private function registerServices(): void
+    {
+        $this->app->singleton(
+            SeoResolverInterface::class,
+            SeoResolver::class
         );
     }
 
