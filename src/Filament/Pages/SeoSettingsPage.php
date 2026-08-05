@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Mahdijd\SeoManagement\Filament\Pages;
 
+use BackedEnum;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -14,6 +14,8 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
 use Mahdijd\SeoManagement\Contracts\SeoSettingsRepositoryInterface;
 use Mahdijd\SeoManagement\Enums\OpenGraphType;
 use Mahdijd\SeoManagement\Enums\RobotsDirective;
@@ -29,7 +31,7 @@ class SeoSettingsPage extends Page implements HasForms
 {
     use InteractsWithForms;
 
-    protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-cog-6-tooth';
 
     protected static string $view = 'seo::pages.seo-settings';
 
@@ -65,7 +67,7 @@ class SeoSettingsPage extends Page implements HasForms
         $this->form->fill($settings->toArray());
     }
 
-    public function form(Form $form): Form
+    public function form(Schema $form): Schema
     {
         return $form
             ->schema([
