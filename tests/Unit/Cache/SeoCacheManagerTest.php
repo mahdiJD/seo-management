@@ -72,4 +72,69 @@ describe('SeoCacheManager', function (): void {
 
         expect($calls)->toBe(2);
     });
+
+    it('flushes all SEO cache entries', function (): void {
+        $calls = 0;
+        $callback = function () use (&$calls): string {
+            $calls++;
+            return '<title>Flushed</title>';
+        };
+
+        $this->cacheManager->remember('key-a', $callback);
+        $this->cacheManager->remember('key-b', $callback);
+
+        expect($calls)->toBe(2);
+
+        $this->cacheManager->flush();
+
+        $this->cacheManager->remember('key-a', $callback);
+        $this->cacheManager->remember('key-b', $callback);
+
+        expect($calls)->toBe(4);
+    });
+
+    it('falls through to callback when cache throws an exception', function (): void {
+        // Simulate a broken cache store by setting an invalid cache_store
+        config(['seo.cache_store' => 'non_existent_driver_xyz']);
+
+        $callbackRan = false;
+        $callback = function () use (&$callbackRan): string {
+            $callbackRan = true;
+            return '<title>Fallthrough</title>';
+        };
+
+        // Should not throw, should fallthrough
+        $result = $this->cacheManager->remember('exception-key', $callback);
+
+        expect($callbackRan)->toBeTrue()
+            ->and($result)->toBe('<title>Fallthrough</title>');
+    });
+
+    it('generates model key containing the class name and model id', function (): void {
+        $post = new TestPost(['id' => 99]);
+        $post->id = 99;
+
+        $key = $this->cacheManager->modelKey($post);
+
+        expect($key)->toStartWith('seo:model:')
+            ->and($key)->toContain('99');
+    });
+
+    it('generates route key containing the route name', function (): void {
+        $key = $this->cacheManager->routeKey('contact.show');
+
+        expect($key)->toStartWith('seo:route:contact.show:');
+    });
+
+    it('generates runtime key with exact format seo:runtime:{identifier}', function (): void {
+        $key = $this->cacheManager->runtimeKey('my-custom-key');
+
+        expect($key)->toBe('seo:runtime:my-custom-key');
+    });
+
+    it('generates settings key starting with seo:settings:', function (): void {
+        $key = $this->cacheManager->settingsKey();
+
+        expect($key)->toStartWith('seo:settings:');
+    });
 });

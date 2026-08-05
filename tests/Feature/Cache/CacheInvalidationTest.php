@@ -75,4 +75,20 @@ describe('Cache Invalidation Observers', function (): void {
 
         Event::assertDispatched(SeoCacheCleared::class);
     });
+
+    it('invalidates model SEO cache when SeoMetadata record is deleted', function (): void {
+        $post = TestPost::create(['title' => 'Post']);
+
+        $metadata = SeoMetadata::create([
+            'seoable_type' => TestPost::class,
+            'seoable_id'   => $post->id,
+            'title'        => 'To Be Deleted',
+        ]);
+
+        Event::fake([SeoCacheCleared::class]);
+
+        $metadata->delete();
+
+        Event::assertDispatched(SeoCacheCleared::class);
+    });
 });

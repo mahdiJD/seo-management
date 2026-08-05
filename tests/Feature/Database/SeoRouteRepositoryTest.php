@@ -73,4 +73,13 @@ describe('SeoRouteRepository', function (): void {
 
         expect($deleted)->toBeFalse();
     });
+
+    it('enforces unique constraint on route_name', function (): void {
+        $this->repository->save('unique-route', ['title' => 'First']);
+
+        expect(fn () => SeoRoute::create([
+            'route_name' => 'unique-route',
+            'title'      => 'Duplicate',
+        ]))->toThrow(\Illuminate\Database\QueryException::class);
+    });
 });

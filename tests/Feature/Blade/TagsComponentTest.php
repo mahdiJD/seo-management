@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Blade;
+use Mahdijd\SeoManagement\Contracts\SeoSettingsRepositoryInterface;
 use Mahdijd\SeoManagement\Models\SeoMetadata;
 use Mahdijd\SeoManagement\Tests\Fixtures\TestPost;
 
@@ -50,5 +51,26 @@ describe('<x-seo::tags /> Blade Component', function (): void {
 
         expect($rendered1)->toContain('<title>Cached Title</title>')
             ->and($rendered2)->toContain('<title>Cached Title</title>');
+    });
+
+    it('uses global defaults when no attributes are provided', function (): void {
+        app(SeoSettingsRepositoryInterface::class)->update([
+            'default_title'       => 'Global Default Title',
+            'default_description' => 'Global Default Description',
+        ]);
+
+        $rendered = Blade::render('<x-seo::tags />');
+
+        expect($rendered)->toContain('<title>Global Default Title</title>')
+            ->and($rendered)->toContain('content="Global Default Description"');
+    });
+
+    it('does not render empty meta tags in output', function (): void {
+        $rendered = Blade::render('<x-seo::tags title="Only Title" />');
+
+        expect($rendered)->toContain('<title>Only Title</title>')
+            ->and($rendered)->not->toContain('name="description"')
+            ->and($rendered)->not->toContain('name="keywords"')
+            ->and($rendered)->not->toContain('rel="canonical"');
     });
 });

@@ -88,4 +88,16 @@ describe('SeoMetadataRepository', function (): void {
 
         expect($deleted)->toBeFalse();
     });
+
+    it('enforces unique constraint on seoable_type and seoable_id', function (): void {
+        $post = TestPost::create(['title' => 'Unique Test Post']);
+
+        $this->repository->save($post, ['title' => 'First']);
+
+        expect(fn () => SeoMetadata::create([
+            'seoable_type' => TestPost::class,
+            'seoable_id'   => $post->id,
+            'title'        => 'Duplicate',
+        ]))->toThrow(\Illuminate\Database\QueryException::class);
+    });
 });

@@ -44,4 +44,25 @@ describe('RuntimeResolver', function (): void {
             ->and($result->jsonLd)->toBe(['@type' => 'WebPage'])
             ->and($result->ogDescription)->toBeNull();
     });
+
+    it('resolves partial overrides leaving unspecified fields null', function (): void {
+        $context = new SeoContext(
+            runtimeOverrides: [
+                'title' => 'Only Title',
+            ]
+        );
+
+        $result = $this->resolver->resolve($context);
+
+        expect($result->title)->toBe('Only Title')
+            ->and($result->description)->toBeNull()
+            ->and($result->keywords)->toBeNull()
+            ->and($result->canonical)->toBeNull()
+            ->and($result->robots)->toBeNull()
+            ->and($result->ogTitle)->toBeNull()
+            ->and($result->ogDescription)->toBeNull()
+            ->and($result->ogImage)->toBeNull()
+            ->and($result->twitterCard)->toBeNull()
+            ->and($result->jsonLd)->toBeNull();
+    });
 });

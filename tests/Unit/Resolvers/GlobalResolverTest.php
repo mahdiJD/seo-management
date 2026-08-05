@@ -38,4 +38,20 @@ describe('GlobalResolver', function (): void {
             ->and($result->ogSiteName)->toBe('Global Site Name')
             ->and($result->twitterCard)->toBe('summary_large_image');
     });
+
+    it('returns null fields when global settings are empty or unset', function (): void {
+        // Auto-create record with no settings (all defaults null)
+        $this->repository->get();
+
+        $context = new SeoContext();
+
+        $result = $this->resolver->resolve($context);
+
+        expect($result->title)->toBeNull()
+            ->and($result->description)->toBeNull()
+            ->and($result->canonical)->toBeNull()
+            ->and($result->ogTitle)->toBeNull()
+            ->and($result->twitterTitle)->toBeNull()
+            ->and($result->jsonLd)->toBeNull();
+    });
 });
