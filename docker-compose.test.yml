@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+
+    working_dir: /app
+
+    volumes:
+      - .:/app
+
+    environment:
+      APP_ENV: testing
+      DB_CONNECTION: sqlite
+      DB_DATABASE: ":memory:"
