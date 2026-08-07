@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Cache;
 use Mahdijd\SeoManagement\Contracts\SeoCacheManagerInterface;
-use Mahdijd\SeoManagement\Models\SeoRoute;
-use Mahdijd\SeoManagement\Services\SeoCacheManager;
 use Mahdijd\SeoManagement\Tests\Fixtures\TestPost;
 
 describe('SeoCacheManager', function (): void {
@@ -18,10 +16,10 @@ describe('SeoCacheManager', function (): void {
         $post = new TestPost(['id' => 42]);
         $post->id = 42;
 
-        $modelKey    = $this->cacheManager->modelKey($post);
-        $routeKey    = $this->cacheManager->routeKey('about');
+        $modelKey = $this->cacheManager->modelKey($post);
+        $routeKey = $this->cacheManager->routeKey('about');
         $settingsKey = $this->cacheManager->settingsKey();
-        $runtimeKey  = $this->cacheManager->runtimeKey('custom-id');
+        $runtimeKey = $this->cacheManager->runtimeKey('custom-id');
 
         expect($modelKey)->toContain('seo:model:')
             ->and($routeKey)->toContain('seo:route:about:')
@@ -33,6 +31,7 @@ describe('SeoCacheManager', function (): void {
         $calls = 0;
         $callback = function () use (&$calls): string {
             $calls++;
+
             return '<title>Cached Title</title>';
         };
 
@@ -48,6 +47,7 @@ describe('SeoCacheManager', function (): void {
         $calls = 0;
         $callback = function () use (&$calls): string {
             $calls++;
+
             return '<title>Title</title>';
         };
 
@@ -64,6 +64,7 @@ describe('SeoCacheManager', function (): void {
         $calls = 0;
         $callback = function () use (&$calls): string {
             $calls++;
+
             return '<title>Bypassed</title>';
         };
 
@@ -77,6 +78,7 @@ describe('SeoCacheManager', function (): void {
         $calls = 0;
         $callback = function () use (&$calls): string {
             $calls++;
+
             return '<title>Flushed</title>';
         };
 
@@ -100,6 +102,7 @@ describe('SeoCacheManager', function (): void {
         $callbackRan = false;
         $callback = function () use (&$callbackRan): string {
             $callbackRan = true;
+
             return '<title>Fallthrough</title>';
         };
 
