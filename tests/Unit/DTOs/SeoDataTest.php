@@ -6,7 +6,7 @@ use Mahdijd\SeoManagement\DTOs\SeoData;
 
 describe('SeoData DTO', function (): void {
     it('initialises with all properties set to null by default', function (): void {
-        $seoData = new SeoData();
+        $seoData = new SeoData;
 
         expect($seoData->title)->toBeNull()
             ->and($seoData->description)->toBeNull()

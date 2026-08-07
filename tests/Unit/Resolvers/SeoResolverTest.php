@@ -6,7 +6,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mahdijd\SeoManagement\Contracts\SeoResolverInterface;
 use Mahdijd\SeoManagement\Contracts\SeoSettingsRepositoryInterface;
 use Mahdijd\SeoManagement\DTOs\SeoContext;
-
 use Mahdijd\SeoManagement\Models\SeoMetadata;
 use Mahdijd\SeoManagement\Models\SeoRoute;
 use Mahdijd\SeoManagement\Tests\Fixtures\TestPost;
@@ -19,15 +18,15 @@ describe('SeoResolver Priority Chain', function (): void {
 
         // Setup global settings
         app(SeoSettingsRepositoryInterface::class)->update([
-            'site_name'           => 'Global Site',
-            'default_title'       => 'Global Title',
+            'site_name' => 'Global Site',
+            'default_title' => 'Global Title',
             'default_description' => 'Global Description',
-            'default_robots'      => 'index,follow',
+            'default_robots' => 'index,follow',
         ]);
     });
 
     it('resolves global defaults when all other sources are empty', function (): void {
-        $context = new SeoContext();
+        $context = new SeoContext;
 
         $result = $this->seoResolver->resolve($context);
 
@@ -39,8 +38,8 @@ describe('SeoResolver Priority Chain', function (): void {
 
     it('priority: route SEO title overrides global default title', function (): void {
         SeoRoute::create([
-            'route_name'  => 'about',
-            'title'       => 'Route Title',
+            'route_name' => 'about',
+            'title' => 'Route Title',
             'description' => 'Route Description',
         ]);
 
@@ -56,15 +55,15 @@ describe('SeoResolver Priority Chain', function (): void {
     it('priority: model SEO title overrides route SEO and global default titles', function (): void {
         SeoRoute::create([
             'route_name' => 'posts.show',
-            'title'      => 'Route Title',
+            'title' => 'Route Title',
         ]);
 
         $post = TestPost::create(['title' => 'Post']);
 
         SeoMetadata::create([
             'seoable_type' => TestPost::class,
-            'seoable_id'   => $post->id,
-            'title'        => 'Model SEO Title',
+            'seoable_id' => $post->id,
+            'title' => 'Model SEO Title',
         ]);
 
         $context = new SeoContext(
@@ -81,15 +80,15 @@ describe('SeoResolver Priority Chain', function (): void {
     it('priority: explicit runtime override title overrides model, route, and global titles', function (): void {
         SeoRoute::create([
             'route_name' => 'posts.show',
-            'title'      => 'Route Title',
+            'title' => 'Route Title',
         ]);
 
         $post = TestPost::create(['title' => 'Post']);
 
         SeoMetadata::create([
             'seoable_type' => TestPost::class,
-            'seoable_id'   => $post->id,
-            'title'        => 'Model SEO Title',
+            'seoable_id' => $post->id,
+            'title' => 'Model SEO Title',
         ]);
 
         $context = new SeoContext(
@@ -111,16 +110,16 @@ describe('SeoResolver Priority Chain', function (): void {
 
         SeoMetadata::create([
             'seoable_type' => TestPost::class,
-            'seoable_id'   => $post->id,
-            'title'        => 'Model Title',
-            'description'  => 'Model Description',
+            'seoable_id' => $post->id,
+            'title' => 'Model Title',
+            'description' => 'Model Description',
         ]);
 
         SeoRoute::create([
-            'route_name'  => 'posts.show',
-            'title'       => 'Route Title',
+            'route_name' => 'posts.show',
+            'title' => 'Route Title',
             'description' => 'Route Description',
-            'keywords'    => 'route, keywords',
+            'keywords' => 'route, keywords',
         ]);
 
         $context = new SeoContext(

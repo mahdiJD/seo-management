@@ -27,32 +27,23 @@ class SeoResolver implements SeoResolverInterface
 {
     /**
      * Create a new SeoResolver instance.
-     *
-     * @param  RuntimeResolver  $runtimeResolver
-     * @param  ModelResolver  $modelResolver
-     * @param  RouteResolver  $routeResolver
-     * @param  GlobalResolver  $globalResolver
      */
     public function __construct(
         protected RuntimeResolver $runtimeResolver,
         protected ModelResolver $modelResolver,
         protected RouteResolver $routeResolver,
         protected GlobalResolver $globalResolver,
-    ) {
-    }
+    ) {}
 
     /**
      * Resolve SEO data for the given context using the priority chain.
-     *
-     * @param  SeoContext  $context
-     * @return SeoData
      */
     public function resolve(SeoContext $context): SeoData
     {
         $runtime = $this->runtimeResolver->resolve($context);
-        $model   = $this->modelResolver->resolve($context);
-        $route   = $this->routeResolver->resolve($context);
-        $global  = $this->globalResolver->resolve($context);
+        $model = $this->modelResolver->resolve($context);
+        $route = $this->routeResolver->resolve($context);
+        $global = $this->globalResolver->resolve($context);
 
         return new SeoData(
             title: $runtime->title ?? $model->title ?? $route->title ?? $global->title,

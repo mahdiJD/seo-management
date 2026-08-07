@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mahdijd\SeoManagement\Services;
 
 use Closure;
+use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Mahdijd\SeoManagement\Contracts\SeoCacheManagerInterface;
@@ -28,9 +29,7 @@ class SeoCacheManager implements SeoCacheManagerInterface
     /**
      * Get an item from the cache, or execute the given Closure and store the result.
      *
-     * @param  string  $key
      * @param  Closure(): string  $callback
-     * @return string
      */
     public function remember(string $key, Closure $callback): string
     {
@@ -40,7 +39,7 @@ class SeoCacheManager implements SeoCacheManagerInterface
         }
 
         try {
-            $ttl   = (int) config('seo.cache_ttl', 86400);
+            $ttl = (int) config('seo.cache_ttl', 86400);
             $store = $this->getCacheStore();
 
             if ($this->supportsTags($store)) {
@@ -58,9 +57,6 @@ class SeoCacheManager implements SeoCacheManagerInterface
 
     /**
      * Forget a specific cache key.
-     *
-     * @param  string  $key
-     * @return void
      */
     public function forget(string $key): void
     {
@@ -79,8 +75,6 @@ class SeoCacheManager implements SeoCacheManagerInterface
 
     /**
      * Flush all SEO cache entries.
-     *
-     * @return void
      */
     public function flush(): void
     {
@@ -102,13 +96,10 @@ class SeoCacheManager implements SeoCacheManagerInterface
      * Generate deterministic cache key for an Eloquent model.
      *
      * Format: seo:model:{class}:{id}:{updated_at_timestamp}
-     *
-     * @param  Model  $model
-     * @return string
      */
     public function modelKey(Model $model): string
     {
-        $updatedAt = $model->updated_at?->timestamp ?? 0;
+        $updatedAt = $model->updated_at?->timestamp ?: 0;
 
         return sprintf(
             'seo:model:%s:%s:%d',
@@ -122,15 +113,12 @@ class SeoCacheManager implements SeoCacheManagerInterface
      * Generate deterministic cache key for a named route.
      *
      * Format: seo:route:{route_name}:{updated_at_timestamp}
-     *
-     * @param  string|SeoRoute  $route
-     * @return string
      */
     public function routeKey(string|SeoRoute $route): string
     {
         if ($route instanceof SeoRoute) {
             $routeName = $route->route_name;
-            $updatedAt = $route->updated_at?->timestamp ?? 0;
+            $updatedAt = $route->updated_at->timestamp;
         } else {
             $routeName = $route;
             $updatedAt = 0;
@@ -143,13 +131,10 @@ class SeoCacheManager implements SeoCacheManagerInterface
      * Generate deterministic cache key for global settings.
      *
      * Format: seo:settings:{updated_at_timestamp}
-     *
-     * @param  SeoSettings|null  $settings
-     * @return string
      */
     public function settingsKey(?SeoSettings $settings = null): string
     {
-        $updatedAt = $settings?->updated_at?->timestamp ?? 0;
+        $updatedAt = $settings?->updated_at?->timestamp ?: 0;
 
         return sprintf('seo:settings:%d', $updatedAt);
     }
@@ -158,9 +143,6 @@ class SeoCacheManager implements SeoCacheManagerInterface
      * Generate deterministic cache key for runtime cached output.
      *
      * Format: seo:runtime:{identifier}
-     *
-     * @param  string  $identifier
-     * @return string
      */
     public function runtimeKey(string $identifier): string
     {
@@ -169,10 +151,8 @@ class SeoCacheManager implements SeoCacheManagerInterface
 
     /**
      * Get the configured Laravel cache store repository instance.
-     *
-     * @return \Illuminate\Contracts\Cache\Repository
      */
-    protected function getCacheStore(): \Illuminate\Contracts\Cache\Repository
+    protected function getCacheStore(): Repository
     {
         $storeName = config('seo.cache_store');
 
@@ -181,11 +161,8 @@ class SeoCacheManager implements SeoCacheManagerInterface
 
     /**
      * Determine if the given cache store supports tagging.
-     *
-     * @param  \Illuminate\Contracts\Cache\Repository  $store
-     * @return bool
      */
-    protected function supportsTags(\Illuminate\Contracts\Cache\Repository $store): bool
+    protected function supportsTags(Repository $store): bool
     {
         try {
             return method_exists($store->getStore(), 'tags');

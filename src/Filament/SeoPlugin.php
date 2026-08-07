@@ -25,8 +25,6 @@ class SeoPlugin implements Plugin
 {
     /**
      * Get the unique plugin identifier.
-     *
-     * @return string
      */
     public function getId(): string
     {
@@ -35,8 +33,6 @@ class SeoPlugin implements Plugin
 
     /**
      * Create a new instance of the plugin.
-     *
-     * @return static
      */
     public static function make(): static
     {
@@ -45,9 +41,6 @@ class SeoPlugin implements Plugin
 
     /**
      * Register the plugin resources and pages with the Filament panel.
-     *
-     * @param  Panel  $panel
-     * @return void
      */
     public function register(Panel $panel): void
     {
@@ -62,11 +55,6 @@ class SeoPlugin implements Plugin
 
     /**
      * Boot the plugin.
-     *
-     * @param  Panel  $panel
-     * @return void
      */
-    public function boot(Panel $panel): void
-    {
-    }
+    public function boot(Panel $panel): void {}
 }

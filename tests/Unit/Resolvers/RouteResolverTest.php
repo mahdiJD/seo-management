@@ -13,11 +13,11 @@ uses(RefreshDatabase::class);
 describe('RouteResolver', function (): void {
     beforeEach(function (): void {
         $this->repository = app(SeoRouteRepositoryInterface::class);
-        $this->resolver   = new RouteResolver($this->repository);
+        $this->resolver = new RouteResolver($this->repository);
     });
 
     it('returns empty SeoData when routeName is null or empty', function (): void {
-        $nullContext  = new SeoContext(routeName: null);
+        $nullContext = new SeoContext(routeName: null);
         $emptyContext = new SeoContext(routeName: '');
 
         expect($this->resolver->resolve($nullContext)->title)->toBeNull()
@@ -35,10 +35,10 @@ describe('RouteResolver', function (): void {
 
     it('resolves route SEO metadata from database when record exists', function (): void {
         SeoRoute::create([
-            'route_name'  => 'about',
-            'title'       => 'About Us Title',
+            'route_name' => 'about',
+            'title' => 'About Us Title',
             'description' => 'About Us Description',
-            'og_title'    => 'About Us OG Title',
+            'og_title' => 'About Us OG Title',
         ]);
 
         $context = SeoContext::forRoute('about');

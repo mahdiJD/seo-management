@@ -19,18 +19,13 @@ class SeoMetadataObserver
 {
     /**
      * Create a new SeoMetadataObserver instance.
-     *
-     * @param  SeoCacheManagerInterface  $cacheManager
      */
     public function __construct(
         protected SeoCacheManagerInterface $cacheManager,
-    ) {
-    }
+    ) {}
 
     /**
      * Handle the SeoMetadata "saved" event.
-     *
-     * @param  SeoMetadata  $metadata
      */
     public function saved(SeoMetadata $metadata): void
     {
@@ -39,8 +34,6 @@ class SeoMetadataObserver
 
     /**
      * Handle the SeoMetadata "deleted" event.
-     *
-     * @param  SeoMetadata  $metadata
      */
     public function deleted(SeoMetadata $metadata): void
     {
@@ -49,8 +42,6 @@ class SeoMetadataObserver
 
     /**
      * Clear the cache for the associated model.
-     *
-     * @param  SeoMetadata  $metadata
      */
     protected function clearCache(SeoMetadata $metadata): void
     {

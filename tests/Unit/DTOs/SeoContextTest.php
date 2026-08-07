@@ -10,7 +10,7 @@ uses(RefreshDatabase::class);
 
 describe('SeoContext DTO', function (): void {
     it('initialises with default null/empty properties', function (): void {
-        $context = new SeoContext();
+        $context = new SeoContext;
 
         expect($context->model)->toBeNull()
             ->and($context->routeName)->toBeNull()

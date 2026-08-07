@@ -14,8 +14,6 @@ namespace Mahdijd\SeoManagement\Exceptions;
  * - An unsupported cache store is specified in config/seo.php.
  * - A required configuration key is missing after publishing.
  * - A numeric configuration value is out of its valid range.
- *
- * @package Mahdijd\SeoManagement\Exceptions
  */
 class InvalidSeoConfigurationException extends SeoException
 {

@@ -19,32 +19,26 @@ class RouteResolver
 {
     /**
      * Create a new RouteResolver instance.
-     *
-     * @param  SeoRouteRepositoryInterface  $repository
      */
     public function __construct(
         protected SeoRouteRepositoryInterface $repository,
-    ) {
-    }
+    ) {}
 
     /**
      * Resolve SEO data for a named route.
-     *
-     * @param  SeoContext  $context
-     * @return SeoData
      */
     public function resolve(SeoContext $context): SeoData
     {
         $routeName = $context->routeName;
 
         if ($routeName === null || $routeName === '') {
-            return new SeoData();
+            return new SeoData;
         }
 
         $record = $this->repository->findByRouteName($routeName);
 
         if ($record === null) {
-            return new SeoData();
+            return new SeoData;
         }
 
         return new SeoData(

@@ -14,11 +14,11 @@ uses(RefreshDatabase::class);
 describe('ModelResolver', function (): void {
     beforeEach(function (): void {
         $this->repository = app(SeoMetadataRepositoryInterface::class);
-        $this->resolver   = new ModelResolver($this->repository);
+        $this->resolver = new ModelResolver($this->repository);
     });
 
     it('returns empty SeoData when context model is null', function (): void {
-        $context = new SeoContext();
+        $context = new SeoContext;
 
         $result = $this->resolver->resolve($context);
 
@@ -31,10 +31,10 @@ describe('ModelResolver', function (): void {
 
         SeoMetadata::create([
             'seoable_type' => TestPost::class,
-            'seoable_id'   => $post->id,
-            'title'        => 'Custom DB SEO Title',
-            'description'  => 'Custom DB Meta Description',
-            'og_title'     => 'Custom OG Title',
+            'seoable_id' => $post->id,
+            'title' => 'Custom DB SEO Title',
+            'description' => 'Custom DB Meta Description',
+            'og_title' => 'Custom OG Title',
         ]);
 
         $context = SeoContext::forModel($post);
@@ -47,18 +47,12 @@ describe('ModelResolver', function (): void {
     });
 
     it('applies getSeoFallback() values for missing fields when no DB record exists', function (): void {
-        $modelWithFallback = new class () extends TestPost {
-            public function getSeoFallback(): array
-            {
-                return [
-                    'title'       => 'Fallback Title',
-                    'description' => 'Fallback Description',
-                ];
-            }
-        };
-        $modelWithFallback->save();
+        $post = TestPost::create([
+            'title' => 'Fallback Title',
+            'excerpt' => 'Fallback Description',
+        ]);
 
-        $context = SeoContext::forModel($modelWithFallback);
+        $context = SeoContext::forModel($post);
 
         $result = $this->resolver->resolve($context);
 
@@ -67,24 +61,18 @@ describe('ModelResolver', function (): void {
     });
 
     it('prioritises database metadata record over getSeoFallback() values', function (): void {
-        $modelWithFallback = new class () extends TestPost {
-            public function getSeoFallback(): array
-            {
-                return [
-                    'title'       => 'Fallback Title',
-                    'description' => 'Fallback Description',
-                ];
-            }
-        };
-        $modelWithFallback->save();
-
-        SeoMetadata::create([
-            'seoable_type' => $modelWithFallback->getMorphClass(),
-            'seoable_id'   => $modelWithFallback->id,
-            'title'        => 'DB Title Wins',
+        $post = TestPost::create([
+            'title' => 'Post Title',
+            'excerpt' => 'Fallback Description',
         ]);
 
-        $context = SeoContext::forModel($modelWithFallback);
+        SeoMetadata::create([
+            'seoable_type' => TestPost::class,
+            'seoable_id' => $post->id,
+            'title' => 'DB Title Wins',
+        ]);
+
+        $context = SeoContext::forModel($post);
 
         $result = $this->resolver->resolve($context);
 

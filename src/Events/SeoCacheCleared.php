@@ -18,6 +18,5 @@ class SeoCacheCleared
      */
     public function __construct(
         public readonly string $cacheKey,
-    ) {
-    }
+    ) {}
 }

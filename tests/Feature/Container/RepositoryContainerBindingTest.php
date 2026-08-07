@@ -11,7 +11,7 @@ use Mahdijd\SeoManagement\Repositories\SeoSettingsRepository;
 
 describe('Repository Container Bindings', function (): void {
     it('resolves SeoMetadataRepositoryInterface to SeoMetadataRepository singleton', function (): void {
-        $first  = app(SeoMetadataRepositoryInterface::class);
+        $first = app(SeoMetadataRepositoryInterface::class);
         $second = app(SeoMetadataRepositoryInterface::class);
 
         expect($first)->toBeInstanceOf(SeoMetadataRepository::class)
@@ -19,7 +19,7 @@ describe('Repository Container Bindings', function (): void {
     });
 
     it('resolves SeoRouteRepositoryInterface to SeoRouteRepository singleton', function (): void {
-        $first  = app(SeoRouteRepositoryInterface::class);
+        $first = app(SeoRouteRepositoryInterface::class);
         $second = app(SeoRouteRepositoryInterface::class);
 
         expect($first)->toBeInstanceOf(SeoRouteRepository::class)
@@ -27,7 +27,7 @@ describe('Repository Container Bindings', function (): void {
     });
 
     it('resolves SeoSettingsRepositoryInterface to SeoSettingsRepository singleton', function (): void {
-        $first  = app(SeoSettingsRepositoryInterface::class);
+        $first = app(SeoSettingsRepositoryInterface::class);
         $second = app(SeoSettingsRepositoryInterface::class);
 
         expect($first)->toBeInstanceOf(SeoSettingsRepository::class)

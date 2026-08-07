@@ -11,7 +11,6 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Schemas\Components\Section;
@@ -33,7 +32,7 @@ class SeoSettingsPage extends Page implements HasForms
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-cog-6-tooth';
 
-    protected static string $view = 'seo::pages.seo-settings';
+    protected string $view = 'seo::pages.seo-settings';
 
     protected static ?string $slug = 'seo-settings';
 

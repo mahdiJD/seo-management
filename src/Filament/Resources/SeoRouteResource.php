@@ -16,7 +16,6 @@ use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
-use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Route as RouteFacade;
@@ -57,7 +56,7 @@ class SeoRouteResource extends Resource
                     ->schema([
                         Select::make('route_name')
                             ->label(__('Route Name'))
-                            ->options(fn () => static::getAvailableRouteOptions())
+                            ->options(fn (?SeoRoute $record = null) => static::getAvailableRouteOptions($record?->route_name))
                             ->searchable()
                             ->required()
                             ->unique(ignoreRecord: true)
@@ -197,21 +196,27 @@ class SeoRouteResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index'  => Pages\ListSeoRoutes::route('/'),
+            'index' => Pages\ListSeoRoutes::route('/'),
             'create' => Pages\CreateSeoRoute::route('/create'),
-            'edit'   => Pages\EditSeoRoute::route('/{record}/edit'),
+            'edit' => Pages\EditSeoRoute::route('/{record}/edit'),
         ];
     }
 
     /**
      * Get available named GET web routes for select dropdown.
      *
+     * @param  string|null  $except  A route name to keep available (used on edit so the record's own route_name stays valid).
      * @return array<string, string>
      */
-    public static function getAvailableRouteOptions(): array
+    public static function getAvailableRouteOptions(?string $except = null): array
     {
         $existing = SeoRoute::pluck('route_name')->toArray();
-        $options  = [];
+
+        if ($except !== null) {
+            $existing = array_values(array_diff($existing, [$except]));
+        }
+
+        $options = [];
 
         foreach (RouteFacade::getRoutes()->getRoutes() as $route) {
             $name = $route->getName();

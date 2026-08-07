@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mahdijd\SeoManagement\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * SeoRoute
@@ -28,9 +29,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $twitter_title
  * @property string|null $twitter_description
  * @property string|null $twitter_image
- * @property array|null $json_ld
- * @property \Illuminate\Support\Carbon $created_at
- * @property \Illuminate\Support\Carbon $updated_at
+ * @property array<string, mixed>|null $json_ld
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  */
 class SeoRoute extends Model
 {

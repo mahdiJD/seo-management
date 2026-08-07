@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
+use Mahdijd\SeoManagement\Contracts\SeoCacheManagerInterface;
+use Mahdijd\SeoManagement\Contracts\SeoRendererInterface;
+use Mahdijd\SeoManagement\Contracts\SeoResolverInterface;
 use Mahdijd\SeoManagement\Events\SeoRendered;
 use Mahdijd\SeoManagement\Events\SeoResolved;
 use Mahdijd\SeoManagement\Models\SeoMetadata;
@@ -23,8 +26,8 @@ describe('SeoManager Cache Hit & Miss', function (): void {
 
         SeoMetadata::create([
             'seoable_type' => TestPost::class,
-            'seoable_id'   => $post->id,
-            'title'        => 'Cached Model Title',
+            'seoable_id' => $post->id,
+            'title' => 'Cached Model Title',
         ]);
 
         $html1 = $this->seoManager->renderForModel($post);
@@ -49,13 +52,13 @@ describe('SeoManager Cache Hit & Miss', function (): void {
         $post = TestPost::create(['title' => 'Post']);
 
         // Mock resolver to throw exception
-        $mockResolver = Mockery::mock(\Mahdijd\SeoManagement\Contracts\SeoResolverInterface::class);
+        $mockResolver = Mockery::mock(SeoResolverInterface::class);
         $mockResolver->shouldReceive('resolve')->andThrow(new RuntimeException('Resolution failure'));
 
         $manager = new SeoManager(
             $mockResolver,
-            app(\Mahdijd\SeoManagement\Contracts\SeoRendererInterface::class),
-            app(\Mahdijd\SeoManagement\Contracts\SeoCacheManagerInterface::class)
+            app(SeoRendererInterface::class),
+            app(SeoCacheManagerInterface::class)
         );
 
         $html = $manager->renderForModel($post);
@@ -72,8 +75,8 @@ describe('SeoManager Cache Hit & Miss', function (): void {
 
         SeoMetadata::create([
             'seoable_type' => TestPost::class,
-            'seoable_id'   => $post->id,
-            'title'        => 'Uncached Model Title',
+            'seoable_id' => $post->id,
+            'title' => 'Uncached Model Title',
         ]);
 
         $html1 = $this->seoManager->renderForModel($post);
@@ -93,7 +96,7 @@ describe('SeoManager Cache Hit & Miss', function (): void {
     it('renders route SEO on first miss and returns cached HTML string on subsequent calls', function (): void {
         SeoRoute::create([
             'route_name' => 'test.route',
-            'title'      => 'Route Cached Title',
+            'title' => 'Route Cached Title',
         ]);
 
         $html1 = $this->seoManager->renderForRoute('test.route');
@@ -110,7 +113,7 @@ describe('SeoManager Cache Hit & Miss', function (): void {
 
         SeoRoute::create([
             'route_name' => 'uncached.route',
-            'title'      => 'Uncached Route Title',
+            'title' => 'Uncached Route Title',
         ]);
 
         $html1 = $this->seoManager->renderForRoute('uncached.route');

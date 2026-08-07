@@ -17,11 +17,11 @@ describe('Complete Resolution Flow — End-to-End Integration', function (): voi
 
         // Setup global defaults
         app(SeoSettingsRepositoryInterface::class)->update([
-            'site_name'            => 'My Global Site',
-            'default_title'        => 'Global Default Title',
-            'default_description'  => 'Global Default Description',
-            'default_robots'       => 'index,follow',
-            'default_og_type'      => 'website',
+            'site_name' => 'My Global Site',
+            'default_title' => 'Global Default Title',
+            'default_description' => 'Global Default Description',
+            'default_robots' => 'index,follow',
+            'default_og_type' => 'website',
             'default_twitter_card' => 'summary_large_image',
         ]);
     });
@@ -31,9 +31,9 @@ describe('Complete Resolution Flow — End-to-End Integration', function (): voi
 
         SeoMetadata::create([
             'seoable_type' => TestPost::class,
-            'seoable_id'   => $post->id,
-            'title'        => 'Model SEO Title',
-            'description'  => 'Model SEO Description',
+            'seoable_id' => $post->id,
+            'title' => 'Model SEO Title',
+            'description' => 'Model SEO Description',
         ]);
 
         $html = $this->seoManager->renderForModel($post);
@@ -66,10 +66,10 @@ describe('Complete Resolution Flow — End-to-End Integration', function (): voi
 
         SeoMetadata::create([
             'seoable_type' => TestPost::class,
-            'seoable_id'   => $post->id,
-            'title'        => 'Model Title',
-            'description'  => 'Model Description',
-            'keywords'     => 'model,keywords',
+            'seoable_id' => $post->id,
+            'title' => 'Model Title',
+            'description' => 'Model Description',
+            'keywords' => 'model,keywords',
         ]);
 
         $data = $this->seoManager->resolveModel($post, [
@@ -91,15 +91,15 @@ describe('Complete Resolution Flow — End-to-End Integration', function (): voi
 
         SeoMetadata::create([
             'seoable_type' => TestPost::class,
-            'seoable_id'   => $post->id,
-            'title'        => 'Model Title',
-            'description'  => 'Model Description',
+            'seoable_id' => $post->id,
+            'title' => 'Model Title',
+            'description' => 'Model Description',
         ]);
 
         SeoRoute::create([
             'route_name' => 'posts.show',
-            'title'      => 'Route Title',
-            'keywords'   => 'route,seo,keywords',
+            'title' => 'Route Title',
+            'keywords' => 'route,seo,keywords',
         ]);
 
         $data = $this->seoManager->resolveModel($post, [
@@ -120,14 +120,14 @@ describe('Complete Resolution Flow — End-to-End Integration', function (): voi
         $post = TestPost::create(['title' => 'Post', 'excerpt' => 'Excerpt']);
 
         SeoMetadata::create([
-            'seoable_type'   => TestPost::class,
-            'seoable_id'     => $post->id,
-            'title'          => 'Full HTML Title',
-            'description'    => 'Full HTML Description',
-            'og_title'       => 'OG Title',
+            'seoable_type' => TestPost::class,
+            'seoable_id' => $post->id,
+            'title' => 'Full HTML Title',
+            'description' => 'Full HTML Description',
+            'og_title' => 'OG Title',
             'og_description' => 'OG Description',
-            'twitter_title'  => 'Twitter Title',
-            'json_ld'        => ['@type' => 'Article', 'headline' => 'Test'],
+            'twitter_title' => 'Twitter Title',
+            'json_ld' => ['@type' => 'Article', 'headline' => 'Test'],
         ]);
 
         $html = $this->seoManager->renderForModel($post);

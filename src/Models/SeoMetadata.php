@@ -6,6 +6,7 @@ namespace Mahdijd\SeoManagement\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Support\Carbon;
 
 /**
  * SeoMetadata
@@ -31,9 +32,9 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @property string|null $twitter_title
  * @property string|null $twitter_description
  * @property string|null $twitter_image
- * @property array|null $json_ld
- * @property \Illuminate\Support\Carbon $created_at
- * @property \Illuminate\Support\Carbon $updated_at
+ * @property array<string, mixed>|null $json_ld
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  */
 class SeoMetadata extends Model
 {

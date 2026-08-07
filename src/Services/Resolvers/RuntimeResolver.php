@@ -18,16 +18,13 @@ class RuntimeResolver
 {
     /**
      * Resolve SEO data from runtime overrides.
-     *
-     * @param  SeoContext  $context
-     * @return SeoData
      */
     public function resolve(SeoContext $context): SeoData
     {
         $overrides = $context->runtimeOverrides;
 
         if (empty($overrides)) {
-            return new SeoData();
+            return new SeoData;
         }
 
         return new SeoData(

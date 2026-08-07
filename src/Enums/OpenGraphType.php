@@ -55,12 +55,12 @@ enum OpenGraphType: string
     public function label(): string
     {
         return match ($this) {
-            self::WEBSITE       => 'Website',
-            self::ARTICLE       => 'Article',
-            self::PRODUCT       => 'Product',
-            self::PROFILE       => 'Profile',
-            self::BOOK          => 'Book',
-            self::VIDEO_MOVIE   => 'Movie',
+            self::WEBSITE => 'Website',
+            self::ARTICLE => 'Article',
+            self::PRODUCT => 'Product',
+            self::PROFILE => 'Profile',
+            self::BOOK => 'Book',
+            self::VIDEO_MOVIE => 'Movie',
             self::VIDEO_EPISODE => 'TV Episode',
         };
     }

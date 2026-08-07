@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Mahdijd\SeoManagement\Tests;
 
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Schema;
 use Mahdijd\SeoManagement\SeoServiceProvider;
+use Mahdijd\SeoManagement\Tests\Support\Filament\AdminPanelProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 /**
@@ -20,30 +22,38 @@ abstract class TestCase extends OrchestraTestCase
     /**
      * Register the package service providers.
      *
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param  Application  $app
      * @return array<int, class-string>
      */
     protected function getPackageProviders($app): array
     {
         return [
             SeoServiceProvider::class,
+            AdminPanelProvider::class,
         ];
+    }
+
+    public function ignorePackageDiscoveriesFrom(): array
+    {
+        return [];
     }
 
     /**
      * Define environment setup.
      *
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param  Application  $app
      */
     protected function defineEnvironment($app): void
     {
         // Use in-memory SQLite for all tests
         $app['config']->set('database.default', 'testing');
         $app['config']->set('database.connections.testing', [
-            'driver'   => 'sqlite',
+            'driver' => 'sqlite',
             'database' => ':memory:',
-            'prefix'   => '',
+            'prefix' => '',
         ]);
+
+        $app['config']->set('app.key', 'base64:'.base64_encode(str_repeat('a', 32)));
     }
 
     /**

@@ -10,7 +10,7 @@ uses(RefreshDatabase::class);
 
 describe('SeoMetadata Model', function (): void {
     it('uses the correct table name', function (): void {
-        $model = new SeoMetadata();
+        $model = new SeoMetadata;
 
         expect($model->getTable())->toBe('seo_metadata');
     });
@@ -20,15 +20,15 @@ describe('SeoMetadata Model', function (): void {
 
         $jsonLdData = [
             '@context' => 'https://schema.org',
-            '@type'    => 'Article',
+            '@type' => 'Article',
             'headline' => 'Sample Headline',
         ];
 
         $seo = SeoMetadata::create([
             'seoable_type' => TestPost::class,
-            'seoable_id'   => $post->id,
-            'title'        => 'SEO Title',
-            'json_ld'      => $jsonLdData,
+            'seoable_id' => $post->id,
+            'title' => 'SEO Title',
+            'json_ld' => $jsonLdData,
         ]);
 
         $fetched = SeoMetadata::find($seo->id);
@@ -42,8 +42,8 @@ describe('SeoMetadata Model', function (): void {
 
         $seo = SeoMetadata::create([
             'seoable_type' => TestPost::class,
-            'seoable_id'   => $post->id,
-            'title'        => 'Morph Title',
+            'seoable_id' => $post->id,
+            'title' => 'Morph Title',
         ]);
 
         expect($seo->seoable)->toBeInstanceOf(TestPost::class)
@@ -53,24 +53,24 @@ describe('SeoMetadata Model', function (): void {
 
     it('allows mass assignment of all defined fillable attributes', function (): void {
         $data = [
-            'seoable_type'        => TestPost::class,
-            'seoable_id'          => 1,
-            'title'               => 'Title',
-            'description'         => 'Description',
-            'keywords'            => 'kw1, kw2',
-            'canonical'           => 'https://example.com/page',
-            'robots'              => 'index,follow',
-            'og_title'            => 'OG Title',
-            'og_description'      => 'OG Description',
-            'og_image'            => 'https://example.com/og.jpg',
-            'og_type'             => 'article',
-            'og_url'              => 'https://example.com/page',
-            'og_site_name'        => 'Site Name',
-            'twitter_card'        => 'summary_large_image',
-            'twitter_title'       => 'Twitter Title',
+            'seoable_type' => TestPost::class,
+            'seoable_id' => 1,
+            'title' => 'Title',
+            'description' => 'Description',
+            'keywords' => 'kw1, kw2',
+            'canonical' => 'https://example.com/page',
+            'robots' => 'index,follow',
+            'og_title' => 'OG Title',
+            'og_description' => 'OG Description',
+            'og_image' => 'https://example.com/og.jpg',
+            'og_type' => 'article',
+            'og_url' => 'https://example.com/page',
+            'og_site_name' => 'Site Name',
+            'twitter_card' => 'summary_large_image',
+            'twitter_title' => 'Twitter Title',
             'twitter_description' => 'Twitter Description',
-            'twitter_image'       => 'https://example.com/tw.jpg',
-            'json_ld'             => ['@type' => 'WebPage'],
+            'twitter_image' => 'https://example.com/tw.jpg',
+            'json_ld' => ['@type' => 'WebPage'],
         ];
 
         $post = TestPost::create(['title' => 'Post']);

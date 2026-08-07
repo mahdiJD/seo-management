@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mahdijd\SeoManagement\Contracts\SeoRouteRepositoryInterface;
 use Mahdijd\SeoManagement\Models\SeoRoute;
@@ -11,7 +12,7 @@ uses(RefreshDatabase::class);
 
 describe('SeoRouteRepository', function (): void {
     beforeEach(function (): void {
-        $this->repository = new SeoRouteRepository();
+        $this->repository = new SeoRouteRepository;
     });
 
     it('implements SeoRouteRepositoryInterface', function (): void {
@@ -27,7 +28,7 @@ describe('SeoRouteRepository', function (): void {
     it('finds existing route record by route_name', function (): void {
         SeoRoute::create([
             'route_name' => 'home',
-            'title'      => 'Home Page Title',
+            'title' => 'Home Page Title',
         ]);
 
         $result = $this->repository->findByRouteName('home');
@@ -39,7 +40,7 @@ describe('SeoRouteRepository', function (): void {
 
     it('creates a new route record when saving for an unrecorded route name', function (): void {
         $saved = $this->repository->save('about', [
-            'title'       => 'About Us',
+            'title' => 'About Us',
             'description' => 'About Us Description',
         ]);
 
@@ -79,7 +80,7 @@ describe('SeoRouteRepository', function (): void {
 
         expect(fn () => SeoRoute::create([
             'route_name' => 'unique-route',
-            'title'      => 'Duplicate',
-        ]))->toThrow(\Illuminate\Database\QueryException::class);
+            'title' => 'Duplicate',
+        ]))->toThrow(QueryException::class);
     });
 });

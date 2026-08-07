@@ -15,13 +15,9 @@ class SeoRendered
 {
     /**
      * Create a new SeoRendered event instance.
-     *
-     * @param  string  $html
-     * @param  SeoContext  $context
      */
     public function __construct(
         public readonly string $html,
         public readonly SeoContext $context,
-    ) {
-    }
+    ) {}
 }

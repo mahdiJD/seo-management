@@ -7,11 +7,11 @@ use Mahdijd\SeoManagement\Services\Resolvers\RuntimeResolver;
 
 describe('RuntimeResolver', function (): void {
     beforeEach(function (): void {
-        $this->resolver = new RuntimeResolver();
+        $this->resolver = new RuntimeResolver;
     });
 
     it('returns empty SeoData when no runtime overrides exist', function (): void {
-        $context = new SeoContext();
+        $context = new SeoContext;
 
         $result = $this->resolver->resolve($context);
 
@@ -23,13 +23,13 @@ describe('RuntimeResolver', function (): void {
     it('resolves explicit runtime overrides into SeoData properties', function (): void {
         $context = new SeoContext(
             runtimeOverrides: [
-                'title'       => 'Runtime Title',
+                'title' => 'Runtime Title',
                 'description' => 'Runtime Description',
-                'keywords'    => 'key1, key2',
-                'canonical'   => 'https://example.com/runtime',
-                'robots'      => 'noindex,nofollow',
-                'ogTitle'     => 'Runtime OG Title',
-                'jsonLd'      => ['@type' => 'WebPage'],
+                'keywords' => 'key1, key2',
+                'canonical' => 'https://example.com/runtime',
+                'robots' => 'noindex,nofollow',
+                'ogTitle' => 'Runtime OG Title',
+                'jsonLd' => ['@type' => 'WebPage'],
             ]
         );
 

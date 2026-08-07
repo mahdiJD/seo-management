@@ -16,13 +16,9 @@ class SeoResolved
 {
     /**
      * Create a new SeoResolved event instance.
-     *
-     * @param  SeoData  $data
-     * @param  SeoContext  $context
      */
     public function __construct(
         public readonly SeoData $data,
         public readonly SeoContext $context,
-    ) {
-    }
+    ) {}
 }

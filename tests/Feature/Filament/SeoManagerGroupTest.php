@@ -20,7 +20,7 @@ describe('SeoManagerGroup', function (): void {
         $post = TestPost::create(['title' => 'Post']);
 
         SeoManagerGroup::save($post, [
-            'title'       => 'Saved Form Title',
+            'title' => 'Saved Form Title',
             'description' => 'Saved Form Description',
         ]);
 

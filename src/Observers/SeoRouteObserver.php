@@ -19,18 +19,13 @@ class SeoRouteObserver
 {
     /**
      * Create a new SeoRouteObserver instance.
-     *
-     * @param  SeoCacheManagerInterface  $cacheManager
      */
     public function __construct(
         protected SeoCacheManagerInterface $cacheManager,
-    ) {
-    }
+    ) {}
 
     /**
      * Handle the SeoRoute "saved" event.
-     *
-     * @param  SeoRoute  $route
      */
     public function saved(SeoRoute $route): void
     {
@@ -39,8 +34,6 @@ class SeoRouteObserver
 
     /**
      * Handle the SeoRoute "deleted" event.
-     *
-     * @param  SeoRoute  $route
      */
     public function deleted(SeoRoute $route): void
     {
@@ -49,8 +42,6 @@ class SeoRouteObserver
 
     /**
      * Clear the cache for the associated route.
-     *
-     * @param  SeoRoute  $route
      */
     protected function clearCache(SeoRoute $route): void
     {

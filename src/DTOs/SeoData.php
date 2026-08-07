@@ -35,8 +35,7 @@ final readonly class SeoData
         public ?string $twitterDescription = null,
         public ?string $twitterImage = null,
         public ?array $jsonLd = null,
-    ) {
-    }
+    ) {}
 
     /**
      * Get the SEO title.
@@ -176,22 +175,22 @@ final readonly class SeoData
     public function toArray(): array
     {
         return [
-            'title'              => $this->title,
-            'description'        => $this->description,
-            'keywords'           => $this->keywords,
-            'canonical'          => $this->canonical,
-            'robots'             => $this->robots,
-            'ogTitle'            => $this->ogTitle,
-            'ogDescription'      => $this->ogDescription,
-            'ogImage'            => $this->ogImage,
-            'ogType'             => $this->ogType,
-            'ogUrl'              => $this->ogUrl,
-            'ogSiteName'         => $this->ogSiteName,
-            'twitterCard'        => $this->twitterCard,
-            'twitterTitle'       => $this->twitterTitle,
+            'title' => $this->title,
+            'description' => $this->description,
+            'keywords' => $this->keywords,
+            'canonical' => $this->canonical,
+            'robots' => $this->robots,
+            'ogTitle' => $this->ogTitle,
+            'ogDescription' => $this->ogDescription,
+            'ogImage' => $this->ogImage,
+            'ogType' => $this->ogType,
+            'ogUrl' => $this->ogUrl,
+            'ogSiteName' => $this->ogSiteName,
+            'twitterCard' => $this->twitterCard,
+            'twitterTitle' => $this->twitterTitle,
             'twitterDescription' => $this->twitterDescription,
-            'twitterImage'       => $this->twitterImage,
-            'jsonLd'             => $this->jsonLd,
+            'twitterImage' => $this->twitterImage,
+            'jsonLd' => $this->jsonLd,
         ];
     }
 }

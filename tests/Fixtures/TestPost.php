@@ -39,7 +39,7 @@ class TestPost extends Model
     public function getSeoFallback(): array
     {
         return [
-            'title'       => $this->title,
+            'title' => $this->title,
             'description' => $this->excerpt,
         ];
     }

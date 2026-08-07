@@ -13,8 +13,6 @@ use RuntimeException;
  *
  * Catching this class will catch all package-specific exceptions, making it easy
  * for host applications to handle SEO-related errors with a single catch block.
- *
- * @package Mahdijd\SeoManagement\Exceptions
  */
 class SeoException extends RuntimeException
 {

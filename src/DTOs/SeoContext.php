@@ -30,16 +30,12 @@ final readonly class SeoContext
         public array $runtimeOverrides = [],
         public ?string $requestUrl = null,
         public ?string $cacheKey = null,
-    ) {
-    }
+    ) {}
 
     /**
      * Create a context instance for an Eloquent model with optional runtime overrides.
      *
-     * @param  Model  $model
      * @param  array<string, mixed>  $overrides
-     * @param  string|null  $requestUrl
-     * @return self
      */
     public static function forModel(Model $model, array $overrides = [], ?string $requestUrl = null): self
     {
@@ -53,10 +49,7 @@ final readonly class SeoContext
     /**
      * Create a context instance for a named route with optional runtime overrides.
      *
-     * @param  string  $routeName
      * @param  array<string, mixed>  $overrides
-     * @param  string|null  $requestUrl
-     * @return self
      */
     public static function forRoute(string $routeName, array $overrides = [], ?string $requestUrl = null): self
     {
@@ -71,9 +64,6 @@ final readonly class SeoContext
      * Create a context instance for explicit runtime overrides.
      *
      * @param  array<string, mixed>  $overrides
-     * @param  string|null  $cacheKey
-     * @param  string|null  $requestUrl
-     * @return self
      */
     public static function forRuntime(array $overrides = [], ?string $cacheKey = null, ?string $requestUrl = null): self
     {

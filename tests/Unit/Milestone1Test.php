@@ -128,7 +128,7 @@ describe('Exceptions', function (): void {
     it('SeoException extends RuntimeException', function (): void {
         $exception = new SeoException('test');
 
-        expect($exception)->toBeInstanceOf(\RuntimeException::class);
+        expect($exception)->toBeInstanceOf(RuntimeException::class);
     });
 
     it('InvalidSeoConfigurationException extends SeoException', function (): void {
@@ -136,11 +136,11 @@ describe('Exceptions', function (): void {
 
         expect($exception)
             ->toBeInstanceOf(SeoException::class)
-            ->toBeInstanceOf(\RuntimeException::class);
+            ->toBeInstanceOf(RuntimeException::class);
     });
 
     it('exceptions carry the correct message', function (): void {
-        $seo     = new SeoException('seo error');
+        $seo = new SeoException('seo error');
         $invalid = new InvalidSeoConfigurationException('invalid config');
 
         expect($seo->getMessage())->toBe('seo error')

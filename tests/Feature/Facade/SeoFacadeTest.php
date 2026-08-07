@@ -16,8 +16,8 @@ describe('Seo Facade', function (): void {
 
         SeoMetadata::create([
             'seoable_type' => TestPost::class,
-            'seoable_id'   => $post->id,
-            'title'        => 'Facade Model Title',
+            'seoable_id' => $post->id,
+            'title' => 'Facade Model Title',
         ]);
 
         $data = Seo::forModel($post);

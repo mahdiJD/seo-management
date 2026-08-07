@@ -16,9 +16,6 @@ interface SeoResolverInterface
 {
     /**
      * Resolve SEO data for the given context.
-     *
-     * @param  SeoContext  $context
-     * @return SeoData
      */
     public function resolve(SeoContext $context): SeoData;
 }

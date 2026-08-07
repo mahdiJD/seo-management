@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mahdijd\SeoManagement\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * SeoSettings
@@ -23,9 +24,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $default_og_site_name
  * @property string|null $default_twitter_card
  * @property string|null $default_twitter_image
- * @property array|null $default_json_ld
- * @property \Illuminate\Support\Carbon $created_at
- * @property \Illuminate\Support\Carbon $updated_at
+ * @property array<string, mixed>|null $default_json_ld
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  */
 class SeoSettings extends Model
 {

@@ -41,10 +41,10 @@ enum RobotsDirective: string
     public function label(): string
     {
         return match ($this) {
-            self::INDEX_FOLLOW      => 'Index, Follow',
-            self::INDEX_NOFOLLOW    => 'Index, No Follow',
-            self::NOINDEX_FOLLOW    => 'No Index, Follow',
-            self::NOINDEX_NOFOLLOW  => 'No Index, No Follow',
+            self::INDEX_FOLLOW => 'Index, Follow',
+            self::INDEX_NOFOLLOW => 'Index, No Follow',
+            self::NOINDEX_FOLLOW => 'No Index, Follow',
+            self::NOINDEX_NOFOLLOW => 'No Index, No Follow',
         };
     }
 

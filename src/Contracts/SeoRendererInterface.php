@@ -15,9 +15,6 @@ interface SeoRendererInterface
 {
     /**
      * Render the given SeoData object into HTML meta tags.
-     *
-     * @param  SeoData  $data
-     * @return string
      */
     public function render(SeoData $data): string;
 }

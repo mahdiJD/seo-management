@@ -18,9 +18,6 @@ class SeoMetadataRepository implements SeoMetadataRepositoryInterface
 {
     /**
      * Find the SeoMetadata record for a given Eloquent model.
-     *
-     * @param  Model  $model
-     * @return SeoMetadata|null
      */
     public function findByModel(Model $model): ?SeoMetadata
     {
@@ -33,16 +30,14 @@ class SeoMetadataRepository implements SeoMetadataRepositoryInterface
     /**
      * Save or update SEO metadata for the given Eloquent model.
      *
-     * @param  Model  $model
      * @param  array<string, mixed>  $data
-     * @return SeoMetadata
      */
     public function save(Model $model, array $data): SeoMetadata
     {
         return SeoMetadata::query()->updateOrCreate(
             [
                 'seoable_type' => $model->getMorphClass(),
-                'seoable_id'   => $model->getKey(),
+                'seoable_id' => $model->getKey(),
             ],
             $data
         );
@@ -50,9 +45,6 @@ class SeoMetadataRepository implements SeoMetadataRepositoryInterface
 
     /**
      * Delete the SeoMetadata record for the given Eloquent model.
-     *
-     * @param  Model  $model
-     * @return bool
      */
     public function delete(Model $model): bool
     {

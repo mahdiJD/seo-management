@@ -9,7 +9,7 @@ uses(RefreshDatabase::class);
 
 describe('SeoRoute Model', function (): void {
     it('uses the correct table name', function (): void {
-        $model = new SeoRoute();
+        $model = new SeoRoute;
 
         expect($model->getTable())->toBe('seo_routes');
     });
@@ -17,14 +17,14 @@ describe('SeoRoute Model', function (): void {
     it('casts json_ld to an array', function (): void {
         $jsonLdData = [
             '@context' => 'https://schema.org',
-            '@type'    => 'WebPage',
-            'name'     => 'About Us',
+            '@type' => 'WebPage',
+            'name' => 'About Us',
         ];
 
         $route = SeoRoute::create([
             'route_name' => 'about',
-            'title'      => 'About Us',
-            'json_ld'    => $jsonLdData,
+            'title' => 'About Us',
+            'json_ld' => $jsonLdData,
         ]);
 
         $fetched = SeoRoute::find($route->id);
@@ -35,23 +35,23 @@ describe('SeoRoute Model', function (): void {
 
     it('allows mass assignment of all defined fillable attributes', function (): void {
         $data = [
-            'route_name'          => 'home',
-            'title'               => 'Home Title',
-            'description'         => 'Home Description',
-            'keywords'            => 'home, welcome',
-            'canonical'           => 'https://example.com/',
-            'robots'              => 'index,follow',
-            'og_title'            => 'Home OG Title',
-            'og_description'      => 'Home OG Description',
-            'og_image'            => 'https://example.com/home-og.jpg',
-            'og_type'             => 'website',
-            'og_url'              => 'https://example.com/',
-            'og_site_name'        => 'Site Name',
-            'twitter_card'        => 'summary_large_image',
-            'twitter_title'       => 'Home Twitter Title',
+            'route_name' => 'home',
+            'title' => 'Home Title',
+            'description' => 'Home Description',
+            'keywords' => 'home, welcome',
+            'canonical' => 'https://example.com/',
+            'robots' => 'index,follow',
+            'og_title' => 'Home OG Title',
+            'og_description' => 'Home OG Description',
+            'og_image' => 'https://example.com/home-og.jpg',
+            'og_type' => 'website',
+            'og_url' => 'https://example.com/',
+            'og_site_name' => 'Site Name',
+            'twitter_card' => 'summary_large_image',
+            'twitter_title' => 'Home Twitter Title',
             'twitter_description' => 'Home Twitter Description',
-            'twitter_image'       => 'https://example.com/home-tw.jpg',
-            'json_ld'             => ['@type' => 'WebSite'],
+            'twitter_image' => 'https://example.com/home-tw.jpg',
+            'json_ld' => ['@type' => 'WebSite'],
         ];
 
         $route = SeoRoute::create($data);

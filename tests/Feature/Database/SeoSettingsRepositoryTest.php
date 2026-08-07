@@ -11,7 +11,7 @@ uses(RefreshDatabase::class);
 
 describe('SeoSettingsRepository', function (): void {
     beforeEach(function (): void {
-        $this->repository = new SeoSettingsRepository();
+        $this->repository = new SeoSettingsRepository;
     });
 
     it('implements SeoSettingsRepositoryInterface', function (): void {
@@ -28,7 +28,7 @@ describe('SeoSettingsRepository', function (): void {
     });
 
     it('returns the same existing record on subsequent get() calls', function (): void {
-        $first  = $this->repository->get();
+        $first = $this->repository->get();
         $second = $this->repository->get();
 
         expect($first->id)->toBe($second->id)
@@ -37,7 +37,7 @@ describe('SeoSettingsRepository', function (): void {
 
     it('updates global settings record via update()', function (): void {
         $updated = $this->repository->update([
-            'site_name'     => 'My Super Site',
+            'site_name' => 'My Super Site',
             'default_title' => 'Default Site Title',
         ]);
 

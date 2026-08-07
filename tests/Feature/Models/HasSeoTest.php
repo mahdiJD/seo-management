@@ -15,7 +15,7 @@ describe('HasSeo Trait', function (): void {
         $post = TestPost::create(['title' => 'Post with HasSeo', 'excerpt' => 'Excerpt']);
 
         $seo = $post->seo()->create([
-            'title'       => 'SEO Title',
+            'title' => 'SEO Title',
             'description' => 'SEO Description',
         ]);
 
@@ -28,7 +28,7 @@ describe('HasSeo Trait', function (): void {
         $post = TestPost::create(['title' => 'New Post', 'excerpt' => 'Excerpt']);
 
         $post->seo()->create([
-            'title'       => 'Created Via Relationship',
+            'title' => 'Created Via Relationship',
             'description' => 'Relationship Description',
         ]);
 
@@ -51,13 +51,14 @@ describe('HasSeo Trait', function (): void {
     });
 
     it('allows overriding getSeoFallback() on the model', function (): void {
-        $modelWithOverride = new class () extends TestPost {
+        $modelWithOverride = new class extends TestPost
+        {
             public function getSeoFallback(): array
             {
                 return [
-                    'title'       => 'Custom Fallback Title',
+                    'title' => 'Custom Fallback Title',
                     'description' => 'Custom Fallback Description',
-                    'ogTitle'     => 'Custom OG Fallback',
+                    'ogTitle' => 'Custom OG Fallback',
                 ];
             }
         };

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Schema;
 use Mahdijd\SeoManagement\Models\SeoMetadata;
@@ -43,15 +44,15 @@ describe('Migrations', function (): void {
 
         SeoMetadata::create([
             'seoable_type' => TestPost::class,
-            'seoable_id'   => $post->id,
-            'title'        => 'First Title',
+            'seoable_id' => $post->id,
+            'title' => 'First Title',
         ]);
 
         expect(fn () => SeoMetadata::create([
             'seoable_type' => TestPost::class,
-            'seoable_id'   => $post->id,
-            'title'        => 'Second Title',
-        ]))->toThrow(Illuminate\Database\QueryException::class);
+            'seoable_id' => $post->id,
+            'title' => 'Second Title',
+        ]))->toThrow(QueryException::class);
     });
 
     it('creates the seo_routes table with correct columns and constraints', function (): void {
@@ -83,13 +84,13 @@ describe('Migrations', function (): void {
     it('enforces unique constraint on route_name in seo_routes', function (): void {
         SeoRoute::create([
             'route_name' => 'home',
-            'title'      => 'Home Title',
+            'title' => 'Home Title',
         ]);
 
         expect(fn () => SeoRoute::create([
             'route_name' => 'home',
-            'title'      => 'Duplicate Home Title',
-        ]))->toThrow(Illuminate\Database\QueryException::class);
+            'title' => 'Duplicate Home Title',
+        ]))->toThrow(QueryException::class);
     });
 
     it('creates the seo_settings table with correct columns', function (): void {

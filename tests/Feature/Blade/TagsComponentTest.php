@@ -16,8 +16,8 @@ describe('<x-seo::tags /> Blade Component', function (): void {
 
         SeoMetadata::create([
             'seoable_type' => TestPost::class,
-            'seoable_id'   => $post->id,
-            'title'        => 'Blade Model SEO Title',
+            'seoable_id' => $post->id,
+            'title' => 'Blade Model SEO Title',
         ]);
 
         $rendered = Blade::render('<x-seo::tags :model="$post" />', ['post' => $post]);
@@ -36,8 +36,8 @@ describe('<x-seo::tags /> Blade Component', function (): void {
 
         SeoMetadata::create([
             'seoable_type' => TestPost::class,
-            'seoable_id'   => $post->id,
-            'title'        => 'DB Model Title',
+            'seoable_id' => $post->id,
+            'title' => 'DB Model Title',
         ]);
 
         $rendered = Blade::render('<x-seo::tags :model="$post" title="Runtime Title Wins" />', ['post' => $post]);
@@ -55,7 +55,7 @@ describe('<x-seo::tags /> Blade Component', function (): void {
 
     it('uses global defaults when no attributes are provided', function (): void {
         app(SeoSettingsRepositoryInterface::class)->update([
-            'default_title'       => 'Global Default Title',
+            'default_title' => 'Global Default Title',
             'default_description' => 'Global Default Description',
         ]);
 

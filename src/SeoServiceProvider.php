@@ -42,7 +42,7 @@ class SeoServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/seo.php',
+            __DIR__.'/../config/seo.php',
             'seo'
         );
 
@@ -58,9 +58,9 @@ class SeoServiceProvider extends ServiceProvider
         $this->registerPublishing();
         $this->registerObservers();
         $this->registerCommands();
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'seo');
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'seo');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'seo');
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'seo');
 
         Blade::component('seo::tags', TagsComponent::class);
     }
@@ -151,22 +151,22 @@ class SeoServiceProvider extends ServiceProvider
 
         // Publish config
         $this->publishes([
-            __DIR__ . '/../config/seo.php' => config_path('seo.php'),
+            __DIR__.'/../config/seo.php' => config_path('seo.php'),
         ], 'seo-config');
 
         // Publish migrations
         $this->publishes([
-            __DIR__ . '/../database/migrations' => database_path('migrations'),
+            __DIR__.'/../database/migrations' => database_path('migrations'),
         ], 'seo-migrations');
 
         // Publish language files
         $this->publishes([
-            __DIR__ . '/../resources/lang' => $this->app->langPath('vendor/seo'),
+            __DIR__.'/../resources/lang' => $this->app->langPath('vendor/seo'),
         ], 'seo-lang');
 
         // Publish views
         $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/seo'),
+            __DIR__.'/../resources/views' => resource_path('views/vendor/seo'),
         ], 'seo-views');
     }
 }

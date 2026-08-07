@@ -6,6 +6,7 @@ namespace Mahdijd\SeoManagement\View\Components;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Request;
 use Illuminate\View\Component;
 use Mahdijd\SeoManagement\Contracts\SeoCacheManagerInterface;
@@ -21,25 +22,7 @@ class TagsComponent extends Component
     /**
      * Create a new TagsComponent instance.
      *
-     * @param  Model|null  $model
-     * @param  string|null  $title
-     * @param  string|null  $description
-     * @param  string|null  $keywords
-     * @param  string|null  $canonical
-     * @param  string|null  $robots
-     * @param  string|null  $ogTitle
-     * @param  string|null  $ogDescription
-     * @param  string|null  $ogImage
-     * @param  string|null  $ogType
-     * @param  string|null  $ogUrl
-     * @param  string|null  $ogSiteName
-     * @param  string|null  $twitterCard
-     * @param  string|null  $twitterTitle
-     * @param  string|null  $twitterDescription
-     * @param  string|null  $twitterImage
      * @param  array<string, mixed>|string|null  $jsonLd
-     * @param  bool|null  $cache
-     * @param  string|null  $cacheKey
      */
     public function __construct(
         public ?Model $model = null,
@@ -61,13 +44,10 @@ class TagsComponent extends Component
         public array|string|null $jsonLd = null,
         public ?bool $cache = null,
         public ?string $cacheKey = null,
-    ) {
-    }
+    ) {}
 
     /**
      * Get the view / contents that represent the component.
-     *
-     * @return View
      */
     public function render(): View
     {
@@ -81,7 +61,7 @@ class TagsComponent extends Component
         if ($this->model !== null) {
             $html = $seoManager->renderForModel($this->model, $runtimeOverrides);
         } else {
-            /** @var \Illuminate\Routing\Route|null $route */
+            /** @var Route|null $route */
             $route = Request::route();
             $routeName = $route?->getName();
 
@@ -94,7 +74,7 @@ class TagsComponent extends Component
 
                 if ($this->cache === false) {
                     $seoData = $seoManager->resolve($runtimeOverrides);
-                    $html    = $seoManager->render($seoData);
+                    $html = $seoManager->render($seoData);
                 } else {
                     $html = $cacheManager->remember($key, function () use ($seoManager, $runtimeOverrides): string {
                         $seoData = $seoManager->resolve($runtimeOverrides);
@@ -104,7 +84,7 @@ class TagsComponent extends Component
                 }
             } else {
                 $seoData = $seoManager->resolve($runtimeOverrides);
-                $html    = $seoManager->render($seoData);
+                $html = $seoManager->render($seoData);
             }
         }
 
@@ -124,21 +104,21 @@ class TagsComponent extends Component
         $overrides = [];
 
         $attributes = [
-            'title'              => $this->title,
-            'description'        => $this->description,
-            'keywords'           => $this->keywords,
-            'canonical'          => $this->canonical,
-            'robots'             => $this->robots,
-            'ogTitle'            => $this->ogTitle,
-            'ogDescription'      => $this->ogDescription,
-            'ogImage'            => $this->ogImage,
-            'ogType'             => $this->ogType,
-            'ogUrl'              => $this->ogUrl,
-            'ogSiteName'         => $this->ogSiteName,
-            'twitterCard'        => $this->twitterCard,
-            'twitterTitle'       => $this->twitterTitle,
+            'title' => $this->title,
+            'description' => $this->description,
+            'keywords' => $this->keywords,
+            'canonical' => $this->canonical,
+            'robots' => $this->robots,
+            'ogTitle' => $this->ogTitle,
+            'ogDescription' => $this->ogDescription,
+            'ogImage' => $this->ogImage,
+            'ogType' => $this->ogType,
+            'ogUrl' => $this->ogUrl,
+            'ogSiteName' => $this->ogSiteName,
+            'twitterCard' => $this->twitterCard,
+            'twitterTitle' => $this->twitterTitle,
             'twitterDescription' => $this->twitterDescription,
-            'twitterImage'       => $this->twitterImage,
+            'twitterImage' => $this->twitterImage,
         ];
 
         foreach ($attributes as $key => $val) {

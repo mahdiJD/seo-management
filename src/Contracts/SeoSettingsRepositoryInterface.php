@@ -15,8 +15,6 @@ interface SeoSettingsRepositoryInterface
 {
     /**
      * Get the single global SeoSettings record (auto-creating if none exists).
-     *
-     * @return SeoSettings
      */
     public function get(): SeoSettings;
 
@@ -24,7 +22,6 @@ interface SeoSettingsRepositoryInterface
      * Update global fallback SEO settings.
      *
      * @param  array<string, mixed>  $data
-     * @return SeoSettings
      */
     public function update(array $data): SeoSettings;
 }

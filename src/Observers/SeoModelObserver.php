@@ -19,8 +19,6 @@ class SeoModelObserver
 {
     /**
      * Handle the model "saved" event.
-     *
-     * @param  Model  $model
      */
     public function saved(Model $model): void
     {
@@ -29,8 +27,6 @@ class SeoModelObserver
 
     /**
      * Handle the model "deleted" event.
-     *
-     * @param  Model  $model
      */
     public function deleted(Model $model): void
     {
@@ -39,8 +35,6 @@ class SeoModelObserver
 
     /**
      * Clear the cache for the model.
-     *
-     * @param  Model  $model
      */
     protected function clearCache(Model $model): void
     {

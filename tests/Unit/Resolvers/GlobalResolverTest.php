@@ -12,21 +12,21 @@ uses(RefreshDatabase::class);
 describe('GlobalResolver', function (): void {
     beforeEach(function (): void {
         $this->repository = app(SeoSettingsRepositoryInterface::class);
-        $this->resolver   = new GlobalResolver($this->repository);
+        $this->resolver = new GlobalResolver($this->repository);
     });
 
     it('resolves default global settings from database', function (): void {
         $this->repository->update([
-            'site_name'            => 'Global Site Name',
-            'default_title'        => 'Global Title Fallback',
-            'default_description'  => 'Global Description Fallback',
-            'default_canonical'    => 'https://example.com',
-            'default_robots'       => 'index,follow',
-            'default_og_type'      => 'website',
+            'site_name' => 'Global Site Name',
+            'default_title' => 'Global Title Fallback',
+            'default_description' => 'Global Description Fallback',
+            'default_canonical' => 'https://example.com',
+            'default_robots' => 'index,follow',
+            'default_og_type' => 'website',
             'default_twitter_card' => 'summary_large_image',
         ]);
 
-        $context = new SeoContext();
+        $context = new SeoContext;
 
         $result = $this->resolver->resolve($context);
 
@@ -43,7 +43,7 @@ describe('GlobalResolver', function (): void {
         // Auto-create record with no settings (all defaults null)
         $this->repository->get();
 
-        $context = new SeoContext();
+        $context = new SeoContext;
 
         $result = $this->resolver->resolve($context);
 

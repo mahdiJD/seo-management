@@ -7,11 +7,11 @@ use Mahdijd\SeoManagement\Services\SeoRenderer;
 
 describe('SeoRenderer', function (): void {
     beforeEach(function (): void {
-        $this->renderer = new SeoRenderer();
+        $this->renderer = new SeoRenderer;
     });
 
     it('returns empty string when SeoData has all null properties', function (): void {
-        $data = new SeoData();
+        $data = new SeoData;
 
         $html = $this->renderer->render($data);
 
@@ -66,7 +66,7 @@ describe('SeoRenderer', function (): void {
         $data = new SeoData(
             jsonLd: [
                 '@context' => 'https://schema.org',
-                '@type'    => 'Article',
+                '@type' => 'Article',
                 'headline' => 'JSON-LD Article',
             ]
         );

@@ -19,18 +19,13 @@ class SeoSettingsObserver
 {
     /**
      * Create a new SeoSettingsObserver instance.
-     *
-     * @param  SeoCacheManagerInterface  $cacheManager
      */
     public function __construct(
         protected SeoCacheManagerInterface $cacheManager,
-    ) {
-    }
+    ) {}
 
     /**
      * Handle the SeoSettings "saved" event.
-     *
-     * @param  SeoSettings  $settings
      */
     public function saved(SeoSettings $settings): void
     {
@@ -39,8 +34,6 @@ class SeoSettingsObserver
 
     /**
      * Handle the SeoSettings "deleted" event.
-     *
-     * @param  SeoSettings  $settings
      */
     public function deleted(SeoSettings $settings): void
     {

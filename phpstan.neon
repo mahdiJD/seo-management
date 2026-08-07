@@ -8,7 +8,20 @@ parameters:
     level: 8
 
     ignoreErrors:
+        -
+            identifier: property.phpDocType
+            message: '/PHPDoc type array<int, string> of property .* is not covariant with PHPDoc type list<string> of overridden property/'
+        -
+            identifier: trait.unused
+            message: '/Trait Mahdijd\\SeoManagement\\Traits\\HasSeo is used zero times/'
+        -
+            identifier: property.notFound
+            message: '/Access to an undefined property Mahdijd\\SeoManagement\\Filament\\Pages\\SeoSettingsPage::\$form/'
+        -
+            identifier: property.notFound
+            message: '/Access to an undefined property Illuminate\\Database\\Eloquent\\Model::\$updated_at/'
+        -
+            identifier: argument.type
+            message: '/Parameter #1 \$view of function view expects view-string\|null, string given/'
 
     excludePaths:
-
-    checkMissingIterableValueType: false

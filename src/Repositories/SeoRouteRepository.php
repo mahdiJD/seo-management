@@ -17,9 +17,6 @@ class SeoRouteRepository implements SeoRouteRepositoryInterface
 {
     /**
      * Find the SeoRoute record for a given route name.
-     *
-     * @param  string  $routeName
-     * @return SeoRoute|null
      */
     public function findByRouteName(string $routeName): ?SeoRoute
     {
@@ -31,9 +28,7 @@ class SeoRouteRepository implements SeoRouteRepositoryInterface
     /**
      * Save or update SEO metadata for a named route.
      *
-     * @param  string  $routeName
      * @param  array<string, mixed>  $data
-     * @return SeoRoute
      */
     public function save(string $routeName, array $data): SeoRoute
     {
@@ -47,9 +42,6 @@ class SeoRouteRepository implements SeoRouteRepositoryInterface
 
     /**
      * Delete the SeoRoute record for a given route name.
-     *
-     * @param  string  $routeName
-     * @return bool
      */
     public function delete(string $routeName): bool
     {

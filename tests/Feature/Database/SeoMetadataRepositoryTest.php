@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mahdijd\SeoManagement\Contracts\SeoMetadataRepositoryInterface;
 use Mahdijd\SeoManagement\Models\SeoMetadata;
@@ -12,7 +13,7 @@ uses(RefreshDatabase::class);
 
 describe('SeoMetadataRepository', function (): void {
     beforeEach(function (): void {
-        $this->repository = new SeoMetadataRepository();
+        $this->repository = new SeoMetadataRepository;
     });
 
     it('implements SeoMetadataRepositoryInterface', function (): void {
@@ -32,8 +33,8 @@ describe('SeoMetadataRepository', function (): void {
 
         SeoMetadata::create([
             'seoable_type' => TestPost::class,
-            'seoable_id'   => $post->id,
-            'title'        => 'Custom Title',
+            'seoable_id' => $post->id,
+            'title' => 'Custom Title',
         ]);
 
         $result = $this->repository->findByModel($post);
@@ -47,7 +48,7 @@ describe('SeoMetadataRepository', function (): void {
         $post = TestPost::create(['title' => 'New Post']);
 
         $saved = $this->repository->save($post, [
-            'title'       => 'Saved Title',
+            'title' => 'Saved Title',
             'description' => 'Saved Description',
         ]);
 
@@ -96,8 +97,8 @@ describe('SeoMetadataRepository', function (): void {
 
         expect(fn () => SeoMetadata::create([
             'seoable_type' => TestPost::class,
-            'seoable_id'   => $post->id,
-            'title'        => 'Duplicate',
-        ]))->toThrow(\Illuminate\Database\QueryException::class);
+            'seoable_id' => $post->id,
+            'title' => 'Duplicate',
+        ]))->toThrow(QueryException::class);
     });
 });

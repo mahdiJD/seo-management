@@ -9,7 +9,7 @@ uses(RefreshDatabase::class);
 
 describe('SeoSettings Model', function (): void {
     it('uses the correct table name', function (): void {
-        $model = new SeoSettings();
+        $model = new SeoSettings;
 
         expect($model->getTable())->toBe('seo_settings');
     });
@@ -17,13 +17,13 @@ describe('SeoSettings Model', function (): void {
     it('casts default_json_ld to an array', function (): void {
         $jsonLdData = [
             '@context' => 'https://schema.org',
-            '@type'    => 'Organization',
-            'name'     => 'My Organization',
+            '@type' => 'Organization',
+            'name' => 'My Organization',
         ];
 
         $settings = SeoSettings::create([
-            'site_name'       => 'My Site',
-            'default_title'   => 'Default Title',
+            'site_name' => 'My Site',
+            'default_title' => 'Default Title',
             'default_json_ld' => $jsonLdData,
         ]);
 
@@ -35,17 +35,17 @@ describe('SeoSettings Model', function (): void {
 
     it('allows mass assignment of all defined fillable attributes', function (): void {
         $data = [
-            'site_name'             => 'Global Site Name',
-            'default_title'         => 'Global Default Title',
-            'default_description'   => 'Global Default Description',
-            'default_canonical'     => 'https://example.com',
-            'default_robots'        => 'index,follow',
-            'default_og_image'      => 'https://example.com/default-og.jpg',
-            'default_og_type'       => 'website',
-            'default_og_site_name'  => 'Global Site Name',
-            'default_twitter_card'  => 'summary_large_image',
+            'site_name' => 'Global Site Name',
+            'default_title' => 'Global Default Title',
+            'default_description' => 'Global Default Description',
+            'default_canonical' => 'https://example.com',
+            'default_robots' => 'index,follow',
+            'default_og_image' => 'https://example.com/default-og.jpg',
+            'default_og_type' => 'website',
+            'default_og_site_name' => 'Global Site Name',
+            'default_twitter_card' => 'summary_large_image',
             'default_twitter_image' => 'https://example.com/default-tw.jpg',
-            'default_json_ld'       => ['@type' => 'Organization'],
+            'default_json_ld' => ['@type' => 'Organization'],
         ];
 
         $settings = SeoSettings::create($data);

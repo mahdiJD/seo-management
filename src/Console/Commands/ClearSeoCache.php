@@ -30,9 +30,6 @@ class ClearSeoCache extends Command
 
     /**
      * Execute the console command.
-     *
-     * @param  SeoCacheManagerInterface  $cacheManager
-     * @return int
      */
     public function handle(SeoCacheManagerInterface $cacheManager): int
     {

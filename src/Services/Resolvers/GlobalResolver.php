@@ -19,19 +19,13 @@ class GlobalResolver
 {
     /**
      * Create a new GlobalResolver instance.
-     *
-     * @param  SeoSettingsRepositoryInterface  $repository
      */
     public function __construct(
         protected SeoSettingsRepositoryInterface $repository,
-    ) {
-    }
+    ) {}
 
     /**
      * Resolve global fallback SEO data.
-     *
-     * @param  SeoContext  $context
-     * @return SeoData
      */
     public function resolve(SeoContext $context): SeoData
     {

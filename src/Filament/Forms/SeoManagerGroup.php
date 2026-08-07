@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Mahdijd\SeoManagement\Filament\Forms;
 
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Group;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Group;
+use Filament\Schemas\Components\Section;
 use Illuminate\Database\Eloquent\Model;
 use Mahdijd\SeoManagement\Contracts\SeoMetadataRepositoryInterface;
 use Mahdijd\SeoManagement\Enums\OpenGraphType;
@@ -25,8 +25,6 @@ class SeoManagerGroup
 {
     /**
      * Create the Filament form schema for SEO metadata.
-     *
-     * @return Group
      */
     public static function make(): Group
     {
@@ -140,9 +138,7 @@ class SeoManagerGroup
     /**
      * Save or delete SEO metadata record for the model based on state.
      *
-     * @param  Model  $record
      * @param  array<string, mixed>  $data
-     * @return void
      */
     public static function save(Model $record, array $data): void
     {

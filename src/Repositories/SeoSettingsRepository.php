@@ -17,8 +17,6 @@ class SeoSettingsRepository implements SeoSettingsRepositoryInterface
 {
     /**
      * Get the single global SeoSettings record (auto-creating if none exists).
-     *
-     * @return SeoSettings
      */
     public function get(): SeoSettings
     {
@@ -29,13 +27,12 @@ class SeoSettingsRepository implements SeoSettingsRepositoryInterface
      * Update global fallback SEO settings.
      *
      * @param  array<string, mixed>  $data
-     * @return SeoSettings
      */
     public function update(array $data): SeoSettings
     {
         $settings = $this->get();
         $settings->update($data);
 
-        return $settings->fresh();
+        return $settings->refresh();
     }
 }

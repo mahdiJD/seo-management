@@ -17,9 +17,6 @@ class SeoRenderer implements SeoRendererInterface
 {
     /**
      * Render the given SeoData object into HTML meta tags.
-     *
-     * @param  SeoData  $data
-     * @return string
      */
     public function render(SeoData $data): string
     {
@@ -106,9 +103,6 @@ class SeoRenderer implements SeoRendererInterface
 
     /**
      * Check if a string property has a non-null, non-empty value.
-     *
-     * @param  string|null  $value
-     * @return bool
      */
     protected function hasValue(?string $value): bool
     {
@@ -117,9 +111,6 @@ class SeoRenderer implements SeoRendererInterface
 
     /**
      * Safely escape an HTML string attribute value to prevent XSS.
-     *
-     * @param  string|null  $value
-     * @return string
      */
     protected function escape(?string $value): string
     {

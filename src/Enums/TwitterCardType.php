@@ -41,10 +41,10 @@ enum TwitterCardType: string
     public function label(): string
     {
         return match ($this) {
-            self::SUMMARY             => 'Summary',
+            self::SUMMARY => 'Summary',
             self::SUMMARY_LARGE_IMAGE => 'Summary with Large Image',
-            self::APP                 => 'App',
-            self::PLAYER              => 'Player',
+            self::APP => 'App',
+            self::PLAYER => 'Player',
         };
     }
 

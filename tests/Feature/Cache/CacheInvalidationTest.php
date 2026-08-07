@@ -16,7 +16,7 @@ uses(RefreshDatabase::class);
 
 describe('Cache Invalidation Observers', function (): void {
     beforeEach(function (): void {
-        $this->seoManager   = app(SeoManager::class);
+        $this->seoManager = app(SeoManager::class);
         $this->cacheManager = app(SeoCacheManagerInterface::class);
     });
 
@@ -27,8 +27,8 @@ describe('Cache Invalidation Observers', function (): void {
 
         $metadata = SeoMetadata::create([
             'seoable_type' => TestPost::class,
-            'seoable_id'   => $post->id,
-            'title'        => 'First Title',
+            'seoable_id' => $post->id,
+            'title' => 'First Title',
         ]);
 
         Event::assertDispatched(SeoCacheCleared::class);
@@ -43,7 +43,7 @@ describe('Cache Invalidation Observers', function (): void {
 
         $route = SeoRoute::create([
             'route_name' => 'contact',
-            'title'      => 'Contact Us',
+            'title' => 'Contact Us',
         ]);
 
         Event::assertDispatched(SeoCacheCleared::class);
@@ -81,8 +81,8 @@ describe('Cache Invalidation Observers', function (): void {
 
         $metadata = SeoMetadata::create([
             'seoable_type' => TestPost::class,
-            'seoable_id'   => $post->id,
-            'title'        => 'To Be Deleted',
+            'seoable_id' => $post->id,
+            'title' => 'To Be Deleted',
         ]);
 
         Event::fake([SeoCacheCleared::class]);
