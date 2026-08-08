@@ -30,32 +30,33 @@ class SeoManagerGroup
     {
         return Group::make([
             Section::make(__('Search Engine Optimization'))
+                ->relationship('seo')
                 ->schema([
-                    TextInput::make('seo.title')
+                    TextInput::make('title')
                         ->label(__('seo::fields.title'))
                         ->maxLength(255)
                         ->helperText(__('Recommended: max 60 characters'))
                         ->nullable(),
 
-                    Textarea::make('seo.description')
+                    Textarea::make('description')
                         ->label(__('seo::fields.description'))
                         ->rows(3)
                         ->helperText(__('Recommended: max 160 characters'))
                         ->nullable(),
 
-                    TextInput::make('seo.canonical')
+                    TextInput::make('canonical')
                         ->label(__('seo::fields.canonical'))
                         ->url()
                         ->maxLength(500)
                         ->nullable(),
 
-                    Select::make('seo.robots')
+                    Select::make('robots')
                         ->label(__('seo::fields.robots'))
                         ->options(RobotsDirective::options())
                         ->searchable()
                         ->nullable(),
 
-                    TextInput::make('seo.keywords')
+                    TextInput::make('keywords')
                         ->label(__('seo::fields.keywords'))
                         ->maxLength(500)
                         ->nullable(),
@@ -63,57 +64,58 @@ class SeoManagerGroup
                 ->collapsible(),
 
             Section::make(__('Social Sharing'))
+                ->relationship('seo')
                 ->schema([
-                    TextInput::make('seo.og_title')
+                    TextInput::make('og_title')
                         ->label(__('seo::fields.og_title'))
                         ->maxLength(255)
                         ->nullable(),
 
-                    Textarea::make('seo.og_description')
+                    Textarea::make('og_description')
                         ->label(__('seo::fields.og_description'))
                         ->rows(2)
                         ->nullable(),
 
-                    FileUpload::make('seo.og_image')
+                    FileUpload::make('og_image')
                         ->label(__('seo::fields.og_image'))
                         ->image()
                         ->directory('seo-images')
                         ->nullable(),
 
-                    Select::make('seo.og_type')
+                    Select::make('og_type')
                         ->label(__('seo::fields.og_type'))
                         ->options(OpenGraphType::options())
                         ->searchable()
                         ->nullable(),
 
-                    TextInput::make('seo.og_url')
+                    TextInput::make('og_url')
                         ->label(__('seo::fields.og_url'))
                         ->url()
                         ->maxLength(500)
                         ->nullable(),
 
-                    TextInput::make('seo.og_site_name')
+                    TextInput::make('og_site_name')
                         ->label(__('seo::fields.og_site_name'))
                         ->maxLength(255)
                         ->nullable(),
 
-                    Select::make('seo.twitter_card')
+                    Select::make('twitter_card')
                         ->label(__('seo::fields.twitter_card'))
                         ->options(TwitterCardType::options())
                         ->searchable()
                         ->nullable(),
 
-                    TextInput::make('seo.twitter_title')
+                    TextInput::make('twitter_title')
                         ->label(__('seo::fields.twitter_title'))
                         ->maxLength(255)
                         ->nullable(),
 
-                    Textarea::make('seo.twitter_description')
+                    Textarea::make('twitter_description')
                         ->label(__('seo::fields.twitter_description'))
                         ->rows(2)
                         ->nullable(),
 
-                    FileUpload::make('seo.twitter_image')
+                    FileUpload::make('twitter_image')
                         ->label(__('seo::fields.twitter_image'))
                         ->image()
                         ->directory('seo-images')
@@ -123,8 +125,9 @@ class SeoManagerGroup
                 ->collapsed(),
 
             Section::make(__('Structured Data'))
+                ->relationship('seo')
                 ->schema([
-                    Textarea::make('seo.json_ld')
+                    Textarea::make('json_ld')
                         ->label(__('seo::fields.json_ld'))
                         ->rows(5)
                         ->helperText(__('Valid JSON-LD schema markup array or string'))
