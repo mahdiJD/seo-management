@@ -1,8 +1,8 @@
 # Laravel Filament SEO Package
 
 [![PHP Version](https://img.shields.io/badge/PHP-8.2%2B-blue)](https://php.net)
-[![Laravel Version](https://img.shields.io/badge/Laravel-12%2B-red)](https://laravel.com)
-[![Filament Version](https://img.shields.io/badge/Filament-4%2B-orange)](https://filamentphp.com)
+[![Laravel Version](https://img.shields.io/badge/Laravel-12.x-red)](https://laravel.com)
+[![Filament Version](https://img.shields.io/badge/Filament-4.x-orange)](https://filamentphp.com)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
 A modern, developer-friendly SEO management package for Laravel applications with first-class support for Filament v4.
@@ -24,9 +24,10 @@ A modern, developer-friendly SEO management package for Laravel applications wit
 | Dependency | Version |
 |---|---|
 | PHP | ≥ 8.2 |
-| Laravel | ≥ 12.0 |
-| Filament | ≥ 4.0 |
-| Livewire | ≥ 3.0 |
+| Laravel | 12.x |
+| Filament | 4.x |
+
+> Filament 5 is not supported in v1.x.
 
 ## Installation
 
@@ -224,10 +225,4 @@ This package is open-sourced software licensed under the [MIT license](LICENSE).
 
 ## Changelog
 
-### v1.0.0 (unreleased)
-
-- Initial release
-- Model SEO, Route SEO, Runtime SEO, Global defaults
-- Filament v4 integration: `SeoManagerGroup`, `SeoRouteResource`, `SeoSettingsPage`
-- Automatic cache management with observer-based invalidation
-- PHPStan level 8 compatible
+See [CHANGELOG.md](CHANGELOG.md) for the full release history.
