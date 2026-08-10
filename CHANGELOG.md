@@ -19,3 +19,8 @@ All notable changes to this project will be documented in this file.
 - `SeoRouteResource`.
 - `SeoSettingsPage`.
 - SEO cache clearing Artisan command.
+
+## [1.0.1] - 2026-08-10
+
+### Fixed
+- Added Laravel 13 compatibility.
