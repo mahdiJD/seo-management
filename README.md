@@ -24,7 +24,7 @@ A modern, developer-friendly SEO management package for Laravel applications wit
 | Dependency | Version |
 |---|---|
 | PHP | ≥ 8.2 |
-| Laravel | 12.x |
+| Laravel | 12.x - 13.x |
 | Filament | 4.x |
 
 > Filament 5 is not supported in v1.x.
