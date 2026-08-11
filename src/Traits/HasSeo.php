@@ -26,7 +26,9 @@ trait HasSeo
      */
     public static function bootHasSeo(): void
     {
-        static::observe(SeoModelObserver::class);
+        static::whenBooted(function (): void {
+            static::observe(SeoModelObserver::class);
+        });
     }
 
     /**

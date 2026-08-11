@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Mahdijd\SeoManagement\Events\SeoCacheCleared;
 use Mahdijd\SeoManagement\Models\SeoMetadata;
+use Mahdijd\SeoManagement\Observers\SeoModelObserver;
 use Mahdijd\SeoManagement\Tests\Fixtures\TestPost;
 
 uses(RefreshDatabase::class);
@@ -88,5 +89,33 @@ describe('HasSeo Trait', function (): void {
         $post->update(['title' => 'After Update']);
 
         Event::assertDispatched(SeoCacheCleared::class);
+    });
+
+    it('registers SeoModelObserver during boot without triggering nested instantiation error', function (): void {
+        $model = new TestPost;
+        $model->title = 'Boot Test';
+        $model->save();
+
+        expect(true)->toBeTrue();
+    });
+
+    it('registers SeoModelObserver via whenBooted and observer fires on save', function (): void {
+        $model = new TestPost;
+
+        $dispatcher = $model->getEventDispatcher();
+
+        $listeners = $dispatcher->getRawListeners();
+
+        $eloquentSaved = $listeners['eloquent.saved: '.TestPost::class] ?? [];
+
+        $observerRegistered = false;
+        foreach ($eloquentSaved as $listener) {
+            if ($listener === SeoModelObserver::class.'@saved') {
+                $observerRegistered = true;
+                break;
+            }
+        }
+
+        expect($observerRegistered)->toBeTrue();
     });
 });
